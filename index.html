@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>과정평가형 자격 교사용 NCS 학습·평가 통합 워크벤치 (2026 공통 매뉴얼 & CQ-Net 공식 편성기준)</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans KR', 'Inter', sans-serif;
+      background-color: #0b1120;
+      color: #f8fafc;
+    }
+    .lab-grid-bg {
+      background-image:
+        linear-gradient(to right, rgba(30, 41, 59, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 41, 59, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .chip-active {
+      background-color: rgba(16, 185, 129, 0.22);
+      border-color: #10b981;
+      color: #6ee7b7;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.28);
+    }
+    .chip-warn-active {
+      background-color: rgba(245, 158, 11, 0.22);
+      border-color: #f59e0b;
+      color: #fcd34d;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.28);
+    }
+    .level-btn-active-high {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      color: #ffffff;
+      border-color: #34d399;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+    .level-btn-active-mid {
+      background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+      color: #ffffff;
+      border-color: #60a5fa;
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.35);
+    }
+    .level-btn-active-low {
+      background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+      color: #ffffff;
+      border-color: #fbbf24;
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+    }
+    .level-btn-active-fail {
+      background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+      color: #ffffff;
+      border-color: #f87171;
+      box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+    }
+    .step-node-active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(5, 150, 105, 0.35) 100%);
+      border-color: #10b981;
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(16, 185, 129, 0.3);
+    }
+    .rubric-cell-active {
+      background-color: rgba(16, 185, 129, 0.25);
+      border-color: #10b981;
+      color: #6ee7b7;
+      font-weight: 700;
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen lab-grid-bg flex flex-col">
+
+  <!-- ==================== STICKY TOP HEADER ==================== -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur border-b border-slate-800 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+          ⚡
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold text-white tracking-tight">과정평가형 자격 교사용 NCS 학습·평가 통합 워크벤치</h1>
+            <span class="text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">CQ-Net 공식 NCS 편성기준 & 2026 내부평가 공통 매뉴얼</span>
+          </div>
+          <p class="text-xs text-slate-400">실제 국가직무능력표준(NCS) 필수능력단위별로 [지도 전 → 지도 중 → 평가 중 → 평가 이후·채점·세특]을 학습하고 딸깍 UI로 평가하는 프로그램</p>
+        </div>
+      </div>
+
+      <!-- Top-Level Mode Switcher -->
+      <nav class="flex flex-wrap items-center gap-1.5 bg-slate-900 p-1 rounded-xl border border-slate-800">
+        <button id="tabBtn-eval" onclick="switchTab('eval')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-emerald-600 text-white shadow">
+          🎛️ 딸깍 평가·세특 생성기
+        </button>
+        <button id="tabBtn-matrix" onclick="switchTab('matrix')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+          📊 반 전체 75% 이수·일괄판정판
+        </button>
+        <button id="tabBtn-admin" onclick="switchTab('admin')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white">
+          🗓️ HRD-Net 기한·엑셀 양식기
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Toast Notification -->
+  <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden transform transition-all duration-300">
+    <div class="bg-emerald-600 text-white px-4 py-3 rounded-xl shadow-2xl border border-emerald-400 flex items-center gap-2.5 text-sm font-medium">
+      <span id="toastIcon">✅</span>
+      <span id="toastText">클립보드에 복사되었습니다!</span>
+    </div>
+  </div>
+
+  <!-- ==================== MAIN WORKSPACE ==================== -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-5">
+
+    <!-- ==================== SHARED TOP BAR: 3 MAJOR QUALIFICATIONS & OFFICIAL NCS UNITS ==================== -->
+    <section class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+        
+        <!-- 3 Major Qualification Cards -->
+        <div class="lg:col-span-6">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="text-xs font-bold text-slate-300">1. 과정평가형 국가기술자격 3대 메이저 종목 선택 (CQ-Net 공식 편성기준)</span>
+            <span id="courseScheduleBadge" class="text-[11px] text-emerald-400 font-medium">필수능력단위 300시간 · 직업기초 18시간</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            <button id="courseCard-elec_ind" onclick="selectQualification('elec_ind')" class="p-2.5 rounded-xl border text-left transition-all bg-emerald-600/20 border-emerald-500 text-white shadow">
+              <div class="text-xs font-bold flex items-center justify-between">
+                <span>🔌 전자산업기사</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-200">v4.0</span>
+              </div>
+              <p class="text-[11px] text-slate-300 mt-1 truncate">PCB·회로설계·MCU·광센서</p>
+            </button>
+
+            <button id="courseCard-elec_const" onclick="selectQualification('elec_const')" class="p-2.5 rounded-xl border text-left transition-all bg-slate-800/80 border-slate-700 text-slate-300 hover:border-slate-500">
+              <div class="text-xs font-bold flex items-center justify-between">
+                <span>⚡ 전기공사산업기사</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200">'26신규</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 truncate">동력제어반·배관배선·수변전</p>
+            </button>
+
+            <button id="courseCard-info_ind" onclick="selectQualification('info_ind')" class="p-2.5 rounded-xl border text-left transition-all bg-slate-800/80 border-slate-700 text-slate-300 hover:border-slate-500">
+              <div class="text-xs font-bold flex items-center justify-between">
+                <span>💻 정보처리산업기사</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-sky-500/30 text-sky-200">v5.0</span>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-1 truncate">SQL활용·화면구현·SW테스트</p>
+            </button>
+          </div>
+          <select id="courseSelect" onchange="handleCourseChange()" class="hidden">
+            <option value="elec_ind">전자산업기사</option>
+            <option value="elec_const">전기공사산업기사</option>
+            <option value="info_ind">정보처리산업기사</option>
+          </select>
+        </div>
+
+        <!-- Official NCS Unit Selector -->
+        <div class="lg:col-span-4">
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">2. 공식 편성기준 필수 NCS 능력단위 선택 (분류번호·기준시간)</label>
+          <select id="unitSelect" onchange="handleUnitChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-semibold text-white focus:outline-none focus:border-emerald-500">
+          </select>
+        </div>
+
+        <!-- Unit Quick Spec Box -->
+        <div class="lg:col-span-2 bg-slate-800/70 rounded-xl p-3 border border-slate-700/80 space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400">최소훈련:</span>
+            <span id="unitTotalHoursBadge" class="font-bold text-emerald-400">60h (45h↑)</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400">평가방법:</span>
+            <span id="unitMethodBadge" class="font-semibold text-sky-300 truncate">L.작업장평가</span>
+          </div>
+          <div class="flex items-center justify-between text-[11px]">
+            <span class="text-slate-400">이수기준:</span>
+            <span class="text-purple-300 font-medium">출석75%·60점↑</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== TAB 1: 4단계 교사 학습 & 딸깍 평가·세특 워크벤치 ==================== -->
+    <div id="view-eval" class="space-y-5">
+
+      <!-- 4-STAGE STEPPER BAR (학생 지도 전 -> 지도 중 -> 평가 중 -> 평가 이후·채점) -->
+      <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-3 shadow-lg">
+        <div class="flex items-center justify-between mb-2 px-1">
+          <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider">🎓 과정평가형 자격 4단계 교사 가이드 & 딸깍 평가 워크벤치 (단계를 클릭해 보세요)</span>
+          <span id="currentStageIndicator" class="text-xs text-slate-400 font-medium">현재 단계: STEP 4 (평가 이후 · 딸깍 채점 · 재평가 · 세특)</span>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
+          <button id="stageBtn-1" onclick="selectStage(1)" class="p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-600">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-sky-400">STEP 1 · 학생 지도 전</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">매뉴얼 Ⅱ·Ⅲ장</span>
+            </div>
+            <div class="text-sm font-bold mt-1">기본계획 · 평가기준 수립</div>
+            <p class="text-[11px] text-slate-400 mt-0.5">NCS 학습결과·평가기준 & 내·외부 검증</p>
+          </button>
+
+          <button id="stageBtn-2" onclick="selectStage(2)" class="p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-600">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400">STEP 2 · 학생 지도 중</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">매뉴얼 p.21·66</span>
+            </div>
+            <div class="text-sm font-bold mt-1">학습목표 · 지도법 · 확인사항</div>
+            <p class="text-[11px] text-slate-400 mt-0.5">능력단위요소별 실습점검 보드 & 75% 출결</p>
+          </button>
+
+          <button id="stageBtn-3" onclick="selectStage(3)" class="p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-600">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-400">STEP 3 · 평가 중</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">매뉴얼 Ⅳ장 p.67</span>
+            </div>
+            <div class="text-sm font-bold mt-1">평가요소 관찰 · 루브릭 채점</div>
+            <p class="text-[11px] text-slate-400 mt-0.5">2인 감독 수칙 & 평가요소별 상·중·하 클릭</p>
+          </button>
+
+          <button id="stageBtn-4" onclick="selectStage(4)" class="p-3 rounded-xl border text-left transition-all step-node-active">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-300">STEP 4 · 평가 이후·채점</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-200">핵심 딸깍 UI</span>
+            </div>
+            <div class="text-sm font-bold mt-1">딸깍 채점 · 피드백 · 세특</div>
+            <p class="text-[11px] text-emerald-100/80 mt-0.5">학생별 수준·스위치 → 총평·재평가·NEIS 세특</p>
+          </button>
+        </div>
+      </div>
+
+      <!-- ==================== STAGE 1 PANEL: 학생 지도 전 (사전 점검 & 학습결과·평가기준 & 평가방법 매트릭스) ==================== -->
+      <div id="stagePanel-1" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          
+          <!-- Left 7 Cols: Official NCS Unit Learning Outcome, Assessment Criteria, and Pre-Teaching Setup -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">매뉴얼 Ⅲ-2장 (p.23~27) · [서식 1] 내부평가 기본계획서</span>
+                  <h3 id="s1UnitTitle" class="text-base font-bold text-white mt-1">NCS 능력단위별 [학습결과] 및 [평가기준] 수립 가이드</h3>
+                </div>
+                <button onclick="copyStage1Plan()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white transition">
+                  📋 기본계획서(학습결과·평가기준) 복사
+                </button>
+              </div>
+
+              <!-- Learning Outcome (~할 수 있다 1문장) -->
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-bold text-emerald-400">🎯 학습결과 (Learning Outcome — 매뉴얼 p.23: NCS 능력단위 정의·수행준거 요약 '~할 수 있다')</span>
+                  <span class="text-[11px] text-slate-400">충분성 · 타당성 · 최신성</span>
+                </div>
+                <p id="s1LearningOutcome" class="text-xs sm:text-sm text-slate-100 leading-relaxed font-medium"></p>
+              </div>
+
+              <!-- Assessment Criteria (평가기준 4~5개 안팎 '~할 수 있다') -->
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-sky-400">📐 세부 평가기준 (Assessment Criteria — 매뉴얼 p.23: 능력단위요소·수행준거 핵심 4~5개 요약)</span>
+                  <span class="text-[11px] text-slate-400">직업계고 수행평가 100% 연계</span>
+                </div>
+                <ul id="s1CriteriaList" class="space-y-1.5 text-xs text-slate-200 list-disc list-inside leading-relaxed">
+                </ul>
+              </div>
+
+              <!-- Pre-Teaching Method & Equipment Preparation -->
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 space-y-2">
+                <span class="text-xs font-bold text-amber-400">🛠️ 학생 지도 전 교사 필수 확인 사항 (선수역량 진단 · 편성기준 시설·장비 · 평가도구 준비)</span>
+                <div id="s1PrepGuide" class="text-xs text-slate-200 space-y-1.5 leading-relaxed"></div>
+              </div>
+            </div>
+
+            <!-- Evaluation Method Selection Rules (Manual p.28~34) -->
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+              <div class="flex items-center justify-between">
+                <h3 class="text-sm font-bold text-white">⚖️ 편성기준 평가방법 선정 & 부적정 사례 예방 규칙 (매뉴얼 p.28~31, p.46, p.124)</h3>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/30 font-semibold">모니터링 집중 점검</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3 rounded-xl bg-slate-800/70 border border-slate-700">
+                  <strong class="text-emerald-300">✅ 주 평가방법 + 배점비율 매칭</strong>
+                  <p id="s1MethodDetail" class="text-slate-300 mt-1 leading-relaxed"></p>
+                </div>
+                <div class="p-3 rounded-xl bg-rose-950/30 border border-rose-500/30">
+                  <strong class="text-rose-300">🚨 G.평가자 체크리스트 단독 사용 금지 & 그룹과제 금지!</strong>
+                  <p class="text-slate-300 mt-1 leading-relaxed">
+                    매뉴얼 p.29 & p.125 FAQ: <strong>G.평가자 체크리스트</strong>는 부수적 평가방법이므로 <strong>단독 활용이 불가</strong>합니다. 반드시 <code>L.작업장 평가</code>, <code>A.포트폴리오</code>, <code>C.서술형 시험</code> 등 주 평가방법과 함께 사용하세요. 또한 <strong>그룹(조별) 과제는 절대 금지</strong>(개인 단위 평가 필수, p.48)입니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 5 Cols: Interactive Pre-Assessment Checklist (매뉴얼 p.19~20, p.64) -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300">매뉴얼 p.19~20, p.64 [서식 3]</span>
+                  <h3 class="text-sm font-bold text-white mt-1">☑️ 지도 전 [평가요소 사전점검 & 내·외부 검증] 체크리스트</h3>
+                </div>
+                <span id="s1ChecklistCount" class="text-xs font-bold text-emerald-400">6 / 6 완료</span>
+              </div>
+              <p class="text-xs text-slate-400">과정 시작 전 기본계획서를 수립하여 학생들에게 사전 고지하고, 능력단위 평가 실시 <strong>7일 전까지</strong> HRD-Net [평가계획관리]에 등록해야 합니다(p.78).</p>
+              
+              <div class="space-y-2 text-xs">
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[사전고지]</strong> 과정 시작 전 내부평가 기본계획서(평가목적·방침·배점·재평가 기준)를 수립하여 학생들에게 공개·배포함 (p.11, p.66)</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[시험위원 2인↑]</strong> 공정한 시행·채점을 위해 전공 지식을 갖춘 <strong>감독위원 2명 이상, 채점위원 2명 이상</strong>(겸임 가능, 비전공 행정직원 불가) 위촉함 (p.16, p.126)</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[개인별 과제]</strong> 그룹(조별) 과제가 아닌 <strong>개인 단위 수행 과제</strong>로 평가도구(①평가지 ②답안지 ③모범답안 ④채점기준표)를 설계함 (p.47~48)</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[내·외부 검증]</strong> 동료 교사 교차검증(내부검증) 및 연간 1회 이상 외부전문가 검증(교육부 규정 제한 시 내부검증+사유서 보관)을 완료함 (p.63, p.126)</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[기본점수 상한]</strong> 수행평가 기본점수 미부여 원칙 준수 (시·도교육청 지침상 예외 부여 시에도 백지·미제출 구별 및 만점의 20% 이하 권장, p.61)</span>
+                </label>
+                <label class="flex items-start gap-2.5 p-2.5 rounded-xl bg-slate-800/60 border border-slate-700 cursor-pointer">
+                  <input type="checkbox" onchange="updateS1Checklist()" class="s1-chk accent-emerald-500 mt-0.5" checked />
+                  <span><strong>[HRD-Net D-7]</strong> 능력단위 내부평가 실시 <strong>영업일 기준 7일 전까지</strong> HRD-Net 평가계획 등록 완료 (p.78)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================== STAGE 2 PANEL: 학생 지도 중 (학습목표 · 지도방법 · 지도 중 확인사항 · 원클릭 실습점검 보드) ==================== -->
+      <div id="stagePanel-2" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          
+          <!-- Left 6 Cols: Official NCS Teaching Objectives, Instructional Methods & Checkpoints During Practice -->
+          <div class="lg:col-span-6 space-y-4">
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+              <div class="border-b border-slate-800 pb-3">
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">STEP 2 · NCS 능력단위 수업 및 실습 지도 가이드</span>
+                <h3 id="s2UnitTitle" class="text-base font-bold text-white mt-1">수업 중 학습목표 · 지도 방법 · 순회지도 확인사항</h3>
+              </div>
+
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 space-y-2">
+                <span class="text-xs font-bold text-emerald-400">📌 능력단위 핵심 학습목표 (NCS 학습모듈 목표)</span>
+                <ul id="s2ObjectivesList" class="space-y-1.5 text-xs text-slate-200 list-disc list-inside leading-relaxed"></ul>
+              </div>
+
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 space-y-2">
+                <span class="text-xs font-bold text-sky-400">👨‍🏫 단계별 학생 지도 방법 (교수·학습 방법)</span>
+                <div id="s2TeachingMethod" class="text-xs text-slate-200 space-y-1.5 leading-relaxed"></div>
+              </div>
+
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 space-y-2">
+                <span class="text-xs font-bold text-amber-400">🔍 지도 중 교사가 순회하며 반드시 확인해야 하는 사항</span>
+                <ul id="s2CheckpointsList" class="space-y-1.5 text-xs text-slate-200 list-disc list-inside leading-relaxed"></ul>
+              </div>
+            </div>
+
+            <!-- Attendance & 75% Golden Rule Card (Manual p.21, p.127 FAQ Q3·Q4) -->
+            <div class="bg-slate-900/95 border border-rose-500/30 rounded-2xl p-4 shadow-lg space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-rose-300">🚨 [매뉴얼 p.127 FAQ 필독] 지도 중 출석률 75% 관리 절대 주의사항!</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300">본평가 후 보충수업 불가</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>본평가(해당 능력단위의 마지막 내부평가) 실시 전</strong>에 반드시 능력단위별 출석률 75% 이상 여부를 확인하세요.<br/>
+                • 출석률 75% 미만인 채로 마지막 내부평가를 치르고 나면, <strong>내부평가일 이후에 보충수업을 하더라도 출석으로 절대 인정되지 않습니다</strong>(매뉴얼 p.127 Q4).<br/>
+                • 고등학교는 정규수업은 <strong>NEIS 출석부</strong>로 관리하고, 방과후 수업을 운영할 경우에만 별도 출석부를 작성·보관합니다(매뉴얼 p.22).
+              </p>
+            </div>
+          </div>
+
+          <!-- Right 6 Cols: Interactive Step-by-Step NCS Practice Verification Board (스위치 딸깍 Form UI 착안!) -->
+          <div class="lg:col-span-6 space-y-4">
+            <div class="bg-slate-900/95 border border-emerald-500/40 rounded-2xl p-5 shadow-xl space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">원클릭 실습 점검 스위치 보드 (딸깍 Form UI)</span>
+                  <h3 class="text-base font-bold text-white mt-1">🎛️ NCS 능력단위요소별 실습 수행 상태 실시간 점검판</h3>
+                </div>
+                <span class="text-xs text-slate-400">점검 학생: <strong id="simTargetStudentName" class="text-emerald-300">김도윤</strong></span>
+              </div>
+
+              <p class="text-xs text-slate-300 leading-relaxed">
+                복잡한 수기 체크표 대신, 수업·실습 중 학생이 완료한 <strong>NCS 능력단위요소 스위치(1~3단계)</strong>를 딸깍 켜고(PASS) 끄면(점검필요), 달성률과 예상 성취수준이 자동 계산되어 평가·세특으로 바로 넘어갑니다.
+              </p>
+
+              <!-- Interactive Toggle Switch Cards for Current NCS Unit's Sub-Elements -->
+              <div id="ncsLabSwitchContainer" class="space-y-2.5 bg-slate-950/90 border border-slate-800 rounded-2xl p-4">
+              </div>
+
+              <!-- Live Status Meter & Diagnostic Output -->
+              <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-2">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-slate-400 font-semibold">실습 수행준거 달성도:</span>
+                  <span id="simProgressBadge" class="font-mono font-bold text-emerald-400">3 / 3 단계 PASS (100%)</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div id="simProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-300" style="width: 100%"></div>
+                </div>
+                <div id="simEquationBox" class="text-xs font-mono text-sky-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800 leading-relaxed">
+                </div>
+              </div>
+
+              <!-- Action Button: Apply Practice Check directly to Current Student -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <button onclick="setAllLabSwitches(1)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 border border-slate-700 transition">
+                  전체 PASS 켜기
+                </button>
+                <button onclick="sendLabResultToStudent()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow transition">
+                  ⚡ 이 실습 점검 상태를 학생 평가·세특에 즉시 반영 (STEP 4 이동) →
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================== STAGE 3 PANEL: 평가 중 (현장 감독 수칙 · 평가요소 루브릭 클릭 채점) ==================== -->
+      <div id="stagePanel-3" class="hidden space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          
+          <!-- Left 5 Cols: In-Exam Proctoring Checklist (매뉴얼 Ⅳ-2장 p.67, p.69, p.124) -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                <div>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">매뉴얼 Ⅳ-2장 (p.67, p.69, p.124)</span>
+                  <h3 class="text-base font-bold text-white mt-1">⏱️ 평가 실시 중 시험위원 필수 감독 수칙</h3>
+                </div>
+                <span class="text-xs font-bold text-amber-400">모니터링 핵심 점검</span>
+              </div>
+
+              <div class="space-y-2 text-xs text-slate-200">
+                <div class="p-2.5 rounded-xl bg-slate-800/70 border border-slate-700">
+                  <strong class="text-emerald-300">1. 전자기기 전원 차단 및 수거 필수 (p.67)</strong>
+                  <p class="text-slate-400 mt-0.5">평가 시작 전 휴대폰·스마트워치·블루투스 기기를 반드시 수거합니다(소지 시 부정행위 간주).</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-800/70 border border-slate-700">
+                  <strong class="text-sky-300">2. 답안지 먼저 배포 → 평가지 나중에 배포 (p.67)</strong>
+                  <p class="text-slate-400 mt-0.5">수험자 본인 확인 및 유의사항 교육 후 답안지를 먼저 배부하고, 시작 신호와 함께 평가지를 배부합니다.</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-800/70 border border-slate-700">
+                  <strong class="text-amber-300">3. 정해진 일시·장소 엄수 & 힌트 제공 절대 금지 (p.124)</strong>
+                  <p class="text-slate-400 mt-0.5">빨리 온 학생 먼저 시험 보게 하거나 며칠 더 시간을 주는 행위, 교사가 힌트를 주는 행위는 대표적 부적정 사례입니다.</p>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-800/70 border border-slate-700">
+                  <strong class="text-purple-300">4. 결시자 발생 시 당일 동일 문제 응시 불가 (p.70, p.128)</strong>
+                  <p class="text-slate-400 mt-0.5">경조사·질병 입원 등 공가 결시자는 지부·지사 사전 실시보고 후 <strong>본평가와 다른 문제</strong>로 다음날 이후 [추가평가](100% 반영)를 실시합니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right 7 Cols: Interactive Criterion Rubric Scorer ([서식 2] 채점기준표 (2) 세부 평가요소별 상·중·하 딸깍 채점) -->
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div>
+                  <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">매뉴얼 p.56, p.100 [서식 2] 채점기준표 (2) 권장 양식</span>
+                  <h3 class="text-base font-bold text-white mt-1">📋 평가 중 [세부 평가요소별 상·중·하] 딸깍 채점표 (점수 자동 합산)</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs text-slate-400">채점 대상: <strong id="s3ActiveStudentName" class="text-white">김도윤</strong></span>
+                  <span id="s3TotalScoreBadge" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold">합계: 96 / 100점</span>
+                </div>
+              </div>
+
+              <p class="text-xs text-slate-400">
+                매뉴얼 부록3(p.124) 주의사항: 채점기준표에 설정되지 않은 임의의 부분배점(예: 0점→3점)을 부여하면 부적정 지적을 받습니다. 아래 표에서 평가요소별 <strong>[상 / 중 / 하]</strong> 버튼을 딸깍 클릭해 정량 채점하세요.
+              </p>
+
+              <!-- Interactive Rubric Table -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="border-b border-slate-700 text-slate-400 bg-slate-800/60">
+                      <th class="py-2.5 px-3">세부 평가요소 (NCS 수행준거 기반)</th>
+                      <th class="py-2.5 px-3">세부 채점기준 (상 기준)</th>
+                      <th class="py-2.5 px-2 text-center w-20">상 (숙련)</th>
+                      <th class="py-2.5 px-2 text-center w-20">중 (양호)</th>
+                      <th class="py-2.5 px-2 text-center w-20">하 (미흡)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="s3RubricTableBody" class="divide-y divide-slate-800">
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="flex justify-end">
+                <button onclick="selectStage(4)" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow transition">
+                  ✅ 채점 점수 확정 후 STEP 4 (총평 · 피드백 · 세특 자동 생성)로 이동 →
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ==================== STAGE 4 PANEL: 평가 이후 · 채점 · 피드백 · 세특 생성기 ==================== -->
+      <div id="stagePanel-4" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column (5 Cols): Student Roster + Level Buttons + NCS Observation Toggle Switches -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- 1. Student Selector & Quick Add -->
+          <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="text-sm font-bold text-white flex items-center gap-2">
+                <span>👨‍🎓 1단계: 학생 선택 또는 빠른 추가</span>
+                <span id="studentCountBadge" class="text-xs px-2 py-0.5 rounded-full bg-slate-800 text-emerald-300 font-mono">5명</span>
+              </h2>
+              <button onclick="toggleQuickAddForm()" class="text-xs px-2.5 py-1 rounded-lg bg-emerald-600/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-600/30 transition font-semibold">
+                + 학생 즉시 추가
+              </button>
+            </div>
+
+            <!-- Quick Add Drawer -->
+            <div id="quickAddDrawer" class="hidden bg-slate-800/90 border border-slate-700 rounded-xl p-3 space-y-2.5">
+              <div class="grid grid-cols-2 gap-2">
+                <div>
+                  <label class="block text-[11px] text-slate-400 mb-0.5">학생 성명 (공백 없이)</label>
+                  <input id="newStudentName" type="text" placeholder="예: 한지민" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white" />
+                </div>
+                <div>
+                  <label class="block text-[11px] text-slate-400 mb-0.5">초기 성취 수준</label>
+                  <select id="newStudentLevel" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white">
+                    <option value="high">상 · 5수준(A) (95점)</option>
+                    <option value="mid" selected>중 · 4수준(B) (85점)</option>
+                    <option value="low">하 · 3~2수준(C/D) (72점)</option>
+                    <option value="fail">재평가 대상 · 1수준(E) (54점)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="flex justify-end gap-2">
+                <button onclick="toggleQuickAddForm()" class="px-2.5 py-1 rounded-lg text-xs text-slate-400 hover:text-white">취소</button>
+                <button onclick="addNewStudent()" class="px-3 py-1 rounded-lg text-xs font-semibold bg-emerald-600 text-white hover:bg-emerald-500">명단에 추가</button>
+              </div>
+            </div>
+
+            <!-- Student Roster Pills -->
+            <div id="studentRosterPills" class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            </div>
+
+            <!-- Direct Name Edit & NEIS 5-Level Badge -->
+            <div class="pt-2 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2 flex-1">
+                <span class="text-xs text-slate-400 whitespace-nowrap">선택 학생:</span>
+                <input id="activeStudentNameInput" type="text" oninput="updateActiveStudentName(this.value)" class="w-28 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs font-bold text-white focus:outline-none focus:border-emerald-500" />
+                <span id="activeStudentExamNo" class="text-[11px] text-slate-500 font-mono">26-0301</span>
+              </div>
+              <span id="neis5TierBadge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">NEIS 성취도: 5수준(A)</span>
+            </div>
+          </div>
+
+          <!-- 2. Achievement Level ("수준") 1-Click Buttons (매뉴얼 p.21 60점 Pass 기준 & p.62 NEIS 5단계 연동) -->
+          <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold text-white">🎚️ 2단계: 학생 수준 딸깍 선택</h2>
+                <p class="text-[11px] text-slate-400">필수능력단위 60점↑ Pass (p.21) · NEIS 5단계(A~E) 자동 매핑 (p.62)</p>
+              </div>
+              <span id="scorePassBadge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">96점 · PASS</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2">
+              <button id="lvlBtn-high" onclick="setStudentLevel('high')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/70 text-left transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs sm:text-sm font-bold">🟢 상 · 5수준(A)</span>
+                  <span class="text-[11px] font-mono opacity-90">90~100점</span>
+                </div>
+                <p class="text-[11px] opacity-85 mt-1">주도적 완벽 수행 · 문제해결력 탁월</p>
+              </button>
+
+              <button id="lvlBtn-mid" onclick="setStudentLevel('mid')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/70 text-left transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs sm:text-sm font-bold">🔵 중 · 4수준(B)</span>
+                  <span class="text-[11px] font-mono opacity-90">80~89점</span>
+                </div>
+                <p class="text-[11px] opacity-85 mt-1">기술적 사고로 과제 양호 완수</p>
+              </button>
+
+              <button id="lvlBtn-low" onclick="setStudentLevel('low')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/70 text-left transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs sm:text-sm font-bold">🟡 하 · 3~2수준(C·D)</span>
+                  <span class="text-[11px] font-mono opacity-90">60~79점(Pass)</span>
+                </div>
+                <p class="text-[11px] opacity-85 mt-1">60점↑ 필수 이수 충족 · 부분 보완</p>
+              </button>
+
+              <button id="lvlBtn-fail" onclick="setStudentLevel('fail')" class="p-2.5 rounded-xl border border-slate-700 bg-slate-800/70 text-left transition-all">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs sm:text-sm font-bold">🔴 미달 · 1수준(E)</span>
+                  <span class="text-[11px] font-mono opacity-90">60점 미만(Fail)</span>
+                </div>
+                <p class="text-[11px] opacity-85 mt-1">재교육 후 재평가(×0.9 환산, 최대90점)</p>
+              </button>
+            </div>
+
+            <!-- Sliders: Score & Attendance -->
+            <div class="pt-2 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/70">
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="text-slate-400">본평가 득점 (소수 둘째 반올림)</span>
+                  <span id="sliderScoreVal" class="font-bold text-white">96점</span>
+                </div>
+                <input id="scoreRangeInput" type="range" min="30" max="100" value="96" oninput="updateStudentScore(this.value)" class="w-full accent-emerald-500 cursor-pointer" />
+              </div>
+
+              <div class="bg-slate-800/60 p-2.5 rounded-xl border border-slate-700/70">
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="text-slate-400">능력단위 출석 (75%↑ 필수)</span>
+                  <span id="sliderAttVal" class="font-bold text-emerald-400">60 / 60h (100%)</span>
+                </div>
+                <input id="attRangeInput" type="range" min="20" max="60" value="60" oninput="updateStudentAttendance(this.value)" class="w-full accent-emerald-500 cursor-pointer" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. One-Click Toggle Switches (관찰 스위치 딸깍 Form UI!) -->
+          <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h2 class="text-sm font-bold text-white">🔌 3단계: NCS 수행준거 관찰 스위치 (딸깍 클릭!)</h2>
+                <p class="text-[11px] text-slate-400">켜진(ON) 스위치 조합에 맞춰 HRD-Net 총평 · 피드백 · NEIS 세특 자동 합성</p>
+              </div>
+              <button onclick="autoPresetSwitches()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-slate-700">
+                ⚡ 수준별 추천조합
+              </button>
+            </div>
+
+            <div>
+              <span class="text-[11px] font-bold text-emerald-400">✅ 우수 수행준거 달성 스위치 (ON 시 우수한 점 & 세특 강점 반영)</span>
+              <div id="strengthChipsContainer" class="flex flex-wrap gap-1.5 mt-1.5">
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-800">
+              <span class="text-[11px] font-bold text-amber-400">🛠️ 보완·교정 지도 스위치 (ON 시 미흡한 점 & 세특 성장과정 반영)</span>
+              <div id="weaknessChipsContainer" class="flex flex-wrap gap-1.5 mt-1.5">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column (7 Cols): Real-Time Generated Outputs (HRD-Net 총평, 건설적 피드백, 재평가 90% 환산, NEIS 세특) -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- Compliance & NEIS Grade Summary Banner -->
+          <div id="complianceStatusBanner" class="bg-emerald-950/50 border border-emerald-500/40 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span id="statusBannerIcon" class="text-xl">✅</span>
+              <div>
+                <h3 id="statusBannerTitle" class="text-sm font-bold text-emerald-300">HRD-Net & NEIS 종합 판정: [이수(Pass) · 성취도 5수준(A)]</h3>
+                <p id="statusBannerDesc" class="text-xs text-slate-300">출석률 100%(기준 75%↑) 및 필수능력단위 96점(기준 60점↑)으로 이수 요건을 완벽히 충족합니다.</p>
+              </div>
+            </div>
+            <button onclick="copyAllOutputs()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow-lg transition flex items-center gap-1.5">
+              📋 전체 평가문구 한 번에 복사
+            </button>
+          </div>
+
+          <!-- Output Card 1: HRD-Net [평가결과신고] -> 평가결과 점검 (우수한 점 / 미흡한 점) (매뉴얼 p.87) -->
+          <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div>
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">HRD-Net 메뉴: 내부평가관리 → 평가결과신고 (매뉴얼 p.82, p.87)</span>
+                <h3 class="text-sm font-bold text-white mt-1">① HRD-Net 전산 입력용 [평가결과 점검] (우수한 점 / 미흡한 점)</h3>
+              </div>
+              <span class="text-[11px] text-amber-300 font-medium">⏱️ 평가 종료 후 영업일 15일 이내 등록</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-emerald-400">▶ 우수한 점 (HRD-Net 입력칸)</span>
+                  <button onclick="copyTextById('outHrdGood', 'HRD-Net [우수한 점]이 복사되었습니다.')" class="text-xs px-2 py-0.5 rounded bg-slate-700 hover:bg-emerald-600 text-slate-200 hover:text-white transition">복사</button>
+                </div>
+                <textarea id="outHrdGood" rows="4" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-lg p-2 text-xs text-slate-200 leading-relaxed focus:outline-none focus:border-emerald-500"></textarea>
+              </div>
+
+              <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3 space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-400">▶ 미흡한 점 (HRD-Net 입력칸)</span>
+                  <button onclick="copyTextById('outHrdWeak', 'HRD-Net [미흡한 점]이 복사되었습니다.')" class="text-xs px-2 py-0.5 rounded bg-slate-700 hover:bg-emerald-600 text-slate-200 hover:text-white transition">복사</button>
+                </div>
+                <textarea id="outHrdWeak" rows="4" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-lg p-2 text-xs text-slate-200 leading-relaxed focus:outline-none focus:border-emerald-500"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Output Card 2: [기타 서식 2] 학습자용 실기평가표 & 건설적 피드백 (긍정-부정-긍정 원칙, 매뉴얼 p.71~72, p.110) -->
+          <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">매뉴얼 p.71~72 & [기타 서식2] 학습자용 평가표 (평가 후 1주 이내 피드백 필수)</span>
+                <h3 class="text-sm font-bold text-white mt-1">② 개인별 평가표 교사 피드백 (긍정 → 보완점 → 성장제안 3단 구조)</h3>
+              </div>
+              <button onclick="copyTextById('outIndividualEval', '[개인별 평가표 피드백]이 복사되었습니다.')" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-emerald-600 text-xs font-semibold text-slate-200 hover:text-white border border-slate-700 transition">
+                📋 평가표 의견 복사
+              </button>
+            </div>
+            <textarea id="outIndividualEval" rows="3" class="w-full bg-slate-800/80 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 leading-relaxed focus:outline-none focus:border-emerald-500"></textarea>
+          </div>
+
+          <!-- Output Card 3: 재교육 및 재평가 계획·90% 환산 계산기 (매뉴얼 p.17~18, p.73, p.128) -->
+          <div id="reevalCard" class="bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span id="reevalBadge" class="text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">매뉴얼 p.17~18, p.73 재교육(훈련시간 미포함) & 재평가(×0.9 환산)</span>
+                <h3 class="text-sm font-bold text-white">③ 재교육·재평가 계획 및 90% 점수 환산기</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] text-slate-400">재평가 원점수(100점 만점):</span>
+                <input id="reevalRawScoreInput" type="number" min="0" max="100" value="88" oninput="generateAllTexts()" class="w-16 bg-slate-800 border border-slate-700 rounded px-2 py-0.5 text-xs font-bold text-amber-300 text-center" />
+                <span id="reevalConvertedBadge" class="text-xs font-bold text-emerald-400">→ 최종 반영: 79.2점</span>
+                <button onclick="copyTextById('outReevalPlan', '[재교육 및 재평가 계획]이 복사되었습니다.')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-amber-600 text-xs font-semibold text-slate-200 hover:text-white border border-slate-700 transition">
+                  📋 재평가 문구 복사
+                </button>
+              </div>
+            </div>
+            <textarea id="outReevalPlan" rows="3" class="w-full bg-slate-800/80 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 leading-relaxed focus:outline-none focus:border-amber-500"></textarea>
+          </div>
+
+          <!-- Output Card 4: 나이스(NEIS) 전문교과 세부능력 및 특기사항 (세특) -->
+          <div class="bg-slate-900/95 border border-emerald-500/40 rounded-2xl p-4 shadow-lg space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">학교생활기록부 (NEIS) 전문교과Ⅱ 실무과목 세특 자동화</span>
+                <h3 class="text-sm font-bold text-white mt-1">④ 학생별 맞춤형 나이스(NEIS) 교과 세부능력 및 특기사항</h3>
+              </div>
+              <div class="flex items-center gap-2">
+                <span id="neisCharCount" class="text-[11px] text-slate-400 font-mono">0자</span>
+                <button onclick="copyTextById('outNeisRecord', '나이스(NEIS) 교과 세특 문구가 복사되었습니다.')" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow transition">
+                  📋 NEIS 세특 복사
+                </button>
+              </div>
+            </div>
+            <textarea id="outNeisRecord" rows="4" oninput="updateCharCount()" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl p-3 text-xs text-emerald-100 leading-relaxed focus:outline-none focus:border-emerald-400"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 2: 반 전체 75% 이수·5단계 성취도 일괄판정판 ==================== -->
+    <div id="view-matrix" class="hidden space-y-6">
+      <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-base font-bold text-white">📊 반 전체 [출석률 75% & 필수 60점↑ Pass & NEIS 5단계 성취도] 종합 판정판</h2>
+            <p class="text-xs text-slate-400 mt-0.5">
+              매뉴얼 p.21, p.62, p.91 기준: <strong class="text-emerald-400">① 모든 능력단위·비NCS 출석률 75% 이상</strong> + <strong class="text-sky-400">② 필수능력단위 60점 이상(선택·비NCS는 기관 기준 Pass)</strong> 충족 시 최종 이수자로 결정되며, 나이스 성취도(A~E)가 함께 산출됩니다.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="batchApplyFullAttendance()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-emerald-300 border border-emerald-500/30 transition">
+              ⚡ 전원 만점출석 일괄적용 (가이드 p.44 기능)
+            </button>
+            <button onclick="exportClassReportCSV()" class="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white shadow transition">
+              📥 반 전체 평가·세특 CSV 다운로드
+            </button>
+          </div>
+        </div>
+
+        <!-- Partial Re-evaluation Calculator Box (매뉴얼 p.18, p.128 Q2) -->
+        <div class="bg-slate-800/70 border border-slate-700 rounded-xl p-3.5 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center text-xs">
+          <div class="lg:col-span-7 space-y-1">
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">매뉴얼 p.18 & p.128 Q2 · 분할 평가 부분 재평가 계산기</span>
+            <p class="text-slate-300">
+              한 능력단위를 1차(배점 70%)와 2차(배점 30%)로 나누어 평가했을 때 2차만 재응시한 경우: <strong>1차 본평가 점수는 100% 반영</strong>하고, <strong>재응시한 2차 점수만 90%(×0.9)</strong>로 환산하여 합산합니다.
+            </p>
+          </div>
+          <div class="lg:col-span-5 flex flex-wrap items-center gap-2 bg-slate-900/90 p-2.5 rounded-xl border border-slate-700">
+            <div>
+              <label class="block text-[10px] text-slate-400">1차 본평가(70%)</label>
+              <input id="part1Score" type="number" value="80" oninput="calcPartialReeval()" class="w-16 bg-slate-800 border border-slate-700 rounded px-2 py-1 text-white text-center font-bold" />
+            </div>
+            <span>+</span>
+            <div>
+              <label class="block text-[10px] text-slate-400">2차 재평가(30%×0.9)</label>
+              <input id="part2Score" type="number" value="92" oninput="calcPartialReeval()" class="w-16 bg-slate-800 border border-slate-700 rounded px-2 py-1 text-amber-300 text-center font-bold" />
+            </div>
+            <span>=</span>
+            <div class="ml-auto text-right">
+              <span class="block text-[10px] text-slate-400">최종 환산득점</span>
+              <span id="partialReevalResult" class="text-sm font-bold text-emerald-400 font-mono">80.8점 (Pass)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Class Matrix Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-slate-700 text-slate-400 bg-slate-800/50">
+                <th class="py-2.5 px-3">수험번호</th>
+                <th class="py-2.5 px-3">성명</th>
+                <th class="py-2.5 px-3">수준 (딸깍 변경)</th>
+                <th class="py-2.5 px-3">정규학습 (h)</th>
+                <th class="py-2.5 px-3">보강훈련 (h)</th>
+                <th class="py-2.5 px-3">학습률 (75%↑)</th>
+                <th class="py-2.5 px-3">내부평가 득점</th>
+                <th class="py-2.5 px-3">NEIS 5단계 (p.62)</th>
+                <th class="py-2.5 px-3">종합판정 (p.91)</th>
+                <th class="py-2.5 px-3 text-right">개별 관리</th>
+              </tr>
+            </thead>
+            <tbody id="matrixTableBody" class="divide-y divide-slate-800">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: 매뉴얼 서식(1~4) & HRD-Net 행정 도구 ==================== -->
+    <div id="view-admin" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Left 6 Cols: Deadlines & Document Preservation Rules -->
+      <div class="lg:col-span-6 space-y-5">
+        
+        <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-4">
+          <div>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">매뉴얼 p.78, p.82, p.91 기준</span>
+            <h2 class="text-base font-bold text-white mt-1">🗓️ 내부평가 법정 신고기한 & 학생 의무고지(D-1) 계산기</h2>
+            <p class="text-xs text-slate-400">내부평가 실시(종료) 예정일을 선택하면 HRD-Net 계획·결과·재평가 마감일을 자동 산출합니다.</p>
+          </div>
+
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-3 flex items-center justify-between gap-4">
+            <label class="text-xs font-bold text-slate-200">내부평가 실시(종료) 예정일:</label>
+            <input id="evalDateInput" type="date" value="2026-11-25" onchange="calculateDeadlines()" class="bg-slate-900 border border-slate-600 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-sky-300">① [평가계획관리] 사전 등록 (실시 7일 전까지)</span>
+                <p class="text-[11px] text-slate-400">학생들에게 평가일정·장소·채점기준·준비물 안내 및 게시 (p.66, p.78)</p>
+              </div>
+              <span id="deadlinePlanDate" class="text-sm font-mono font-bold text-sky-400">2026-11-18</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-purple-300">② [평가자-학습자 피드백] 실시 (평가 후 1주 이내)</span>
+                <p class="text-[11px] text-slate-400">구두 또는 서면 피드백 제공 및 결과 확인 서명/온라인 회신 (p.71)</p>
+              </div>
+              <span id="deadlineFeedbackDate" class="text-sm font-mono font-bold text-purple-400">2026-12-02</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-emerald-300">③ [평가결과신고] LMS 등록 (종료 후 15일 이내)</span>
+                <p class="text-[11px] text-slate-400">문제지, 채점기준(모범답안), 훈련생별 득점현황 첨부 필수 (p.82, p.129 Q1)</p>
+              </div>
+              <span id="deadlineResultDate" class="text-sm font-mono font-bold text-emerald-400">2026-12-10</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-800/60 border border-slate-700 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-amber-300">④ [재평가결과신고] (재평가 실시 후 7일 이내)</span>
+                <p class="text-[11px] text-slate-400">본평가 당일 재평가 불가(다음날부터 가능), 본평가와 다른 문제 출제 필수 (p.128 Q7)</p>
+              </div>
+              <span id="deadlineReevalDate" class="text-xs font-mono font-bold text-amber-400">재평가 후 7일 이내</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Document Preservation Periods & LMS Attachment Rules (매뉴얼 p.6, p.19, p.129) -->
+        <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-white">🗄️ 내부평가 결과물 법정 보존기간 & 전산 첨부 체크리스트 (매뉴얼 p.6, p.129)</h3>
+            <span id="checklistProgress" class="text-xs font-bold text-emerald-400">3 / 5 완료</span>
+          </div>
+          <p class="text-xs text-slate-400">
+            매뉴얼 p.6 & p.129 Q1: HRD-Net 전산에는 <strong>①문제지, ②채점기준(모범답안), ③훈련생별 득점현황</strong>만 첨부하며, 작품 샘플(표본) 사진은 전산 등록에서 제외되었습니다(학교 자체 보관).
+          </p>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/70 cursor-pointer">
+              <input type="checkbox" onchange="updateEvidenceChecklist()" class="evidence-chk accent-emerald-500 w-4 h-4" checked />
+              <span><strong>[HRD-Net 필수첨부 1] 시험문제지(평가지)</strong> — 수료일로부터 <strong>3년 보관</strong></span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/70 cursor-pointer">
+              <input type="checkbox" onchange="updateEvidenceChecklist()" class="evidence-chk accent-emerald-500 w-4 h-4" checked />
+              <span><strong>[HRD-Net 필수첨부 2] 채점기준표 및 모범답안</strong> — 수료일로부터 <strong>3년 보관</strong></span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/70 cursor-pointer">
+              <input type="checkbox" onchange="updateEvidenceChecklist()" class="evidence-chk accent-emerald-500 w-4 h-4" checked />
+              <span><strong>[HRD-Net 필수첨부 3] 내부평가 채점결과(훈련생별 득점현황)</strong> — 수료일로부터 <strong>3년 보관</strong></span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/70 cursor-pointer">
+              <input type="checkbox" onchange="updateEvidenceChecklist()" class="evidence-chk accent-emerald-500 w-4 h-4" />
+              <span><strong>[자체보관] 주관식 답안지(도면 포함)</strong> — 내부평가 종료일로부터 <strong>1년 보관</strong> (전자문서 가능)</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2 rounded-lg bg-slate-800/60 border border-slate-700/70 cursor-pointer">
+              <input type="checkbox" onchange="updateEvidenceChecklist()" class="evidence-chk accent-emerald-500 w-4 h-4" />
+              <span><strong>[자체보관] 기타 작업형 실물 작품</strong> — 종료 후 <strong>1개월 보관</strong> (장기보존 불가 시 안내판 놓고 사진촬영·감독위원 확인 후 폐기 가능, p.6)</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right 6 Cols: 2026 External Exam Schedule (매뉴얼 p.130) + Excel Cleaner -->
+      <div class="lg:col-span-6 space-y-5">
+
+        <!-- 2026년 과정평가형 국가기술자격 외부평가 회차별 시행 일정 (매뉴얼 부록5 p.130) -->
+        <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">매뉴얼 부록5 (p.130, p.91)</span>
+              <h3 class="text-sm font-bold text-white mt-1">📅 2026년 외부평가 정기 1~4회 시행 일정표 (마감 1일 전 학생 통보 의무!)</h3>
+            </div>
+          </div>
+          <p class="text-[11px] text-amber-300">
+            ※ 매뉴얼 p.7 & p.91: 훈련기관(학교)은 응시회차신청, 원서접수, 종합결과신고 <strong>각 절차별 마감 1일 전까지 훈련생에게 완료 여부를 의무적으로 고지</strong>해야 합니다(모니터링 확인).
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-[11px]">
+              <thead>
+                <tr class="border-b border-slate-700 text-slate-400 bg-slate-800/60">
+                  <th class="py-2 px-2">구분</th>
+                  <th class="py-2 px-2">응시회차신청</th>
+                  <th class="py-2 px-2">CQ-Net 원서접수</th>
+                  <th class="py-2 px-2">종합결과신고</th>
+                  <th class="py-2 px-2">1차 / 2차 시험일</th>
+                  <th class="py-2 px-2">합격발표</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800 text-slate-200">
+                <tr>
+                  <td class="py-2 px-2 font-bold text-slate-400">정기 1회</td>
+                  <td class="py-2 px-2">'25.12.30 까지</td>
+                  <td class="py-2 px-2">1.13 ~ 1.16</td>
+                  <td class="py-2 px-2">2.9(월) 까지</td>
+                  <td class="py-2 px-2">2.23 / 2.24~2.27</td>
+                  <td class="py-2 px-2">3.17(화)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-2 font-bold text-slate-400">정기 2회</td>
+                  <td class="py-2 px-2">4.28(화) 까지</td>
+                  <td class="py-2 px-2">5.12 ~ 5.15</td>
+                  <td class="py-2 px-2">6.11(목) 까지</td>
+                  <td class="py-2 px-2">6.22 / 6.23~6.26</td>
+                  <td class="py-2 px-2">7.9(목)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-2 font-bold text-slate-400">정기 3회</td>
+                  <td class="py-2 px-2">7.7(화) 까지</td>
+                  <td class="py-2 px-2">7.21 ~ 7.24</td>
+                  <td class="py-2 px-2">8.25(화) 까지</td>
+                  <td class="py-2 px-2">9.3 / 9.4~9.9</td>
+                  <td class="py-2 px-2">9.30(수)</td>
+                </tr>
+                <tr class="bg-emerald-950/30 border-l-2 border-emerald-400">
+                  <td class="py-2 px-2 font-bold text-emerald-300">정기 4회 (현재)</td>
+                  <td class="py-2 px-2">10.13(화) 까지</td>
+                  <td class="py-2 px-2">10.27 ~ 10.30</td>
+                  <td class="py-2 px-2 font-bold text-amber-300">11.24(화) 까지</td>
+                  <td class="py-2 px-2 font-bold text-white">12.3 / 12.4~12.9</td>
+                  <td class="py-2 px-2 text-emerald-300">12.23(수)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- HRD-Net 교육훈련생 일괄등록 엑셀 오류 방지 클리너 -->
+        <div class="bg-slate-900/95 border border-slate-800 rounded-2xl p-5 shadow-lg space-y-3">
+          <div>
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/30">HRD-Net 가이드 p.29~30 [교육훈련생 일괄등록]</span>
+            <h2 class="text-sm font-bold text-white mt-1">🧼 훈련생 일괄등록 엑셀(CSV) 클리너 (주민번호 '0' & 이름 공백 자동 교정)</h2>
+          </div>
+
+          <textarea id="rawRosterInput" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-xs font-mono text-slate-200">김 도 윤, 080315-3123456, 010-1234-5678, 34134, 대전광역시 유성구 대학로 99
+이 서 연, 080922-4234567, 010-9876-5432, 34134, 대전광역시 유성구 궁동로 12
+박 지 훈, 081104-3345678, 010-5555-7777, 34134, 대전광역시 유성구 봉명동 45</textarea>
+
+          <div class="flex items-center justify-between gap-2">
+            <button onclick="cleanAndPreviewRoster()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white transition">
+              ✨ HRD-Net 규격으로 딸깍 자동 교정
+            </button>
+            <button onclick="downloadCleanedRosterCSV()" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
+              📥 일괄등록용 CSV 다운로드
+            </button>
+          </div>
+
+          <div id="cleanedRosterPreview" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-[11px] font-mono text-emerald-300 overflow-x-auto whitespace-pre"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ==================== GROUNDED OFFICIAL CQ-NET NCS CURRICULUM DATASET ====================
+    const COURSE_DATA = {
+      elec_ind: {
+        name: "전자산업기사 (편성기준 v4.0 · C170)",
+        scheduleNote: "필수능력단위 300시간 · 직업기초능력 18시간 (CQ-Net 공식 편성기준)",
+        units: [
+          {
+            id: "unit_pcb",
+            name: "하드웨어 PCB설계 (1903200107_25v1 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(70%) + A.포트폴리오(30%)",
+            learningOutcome: "전자회로 설계 사양서와 회로도를 바탕으로 전자캐드(ECAD)를 활용하여 부품 풋프린트 라이브러리를 생성하고, 노이즈 저감 및 디자인 룰(DRC)을 충족하는 인쇄회로기판(PCB) 아트워크 레이아웃과 거버(Gerber) 데이터를 생성할 수 있다.",
+            criteria: [
+              "회로도의 부품 사양(Datasheet)에 부합하는 PCB 풋프린트(Footprint) 패드 및 외형 라이브러리를 정확히 생성하고 매핑할 수 있다.",
+              "넷리스트(Netlist)를 반입하여 보드 외곽 치수(Board Outline)와 기구적 제약조건, 신호 흐름을 고려해 부품을 최적 배치할 수 있다.",
+              "전원·접지(GND) 배선 폭 및 클리어런스 디자인 룰(DRC)을 설정하고 신호 간섭을 최소화하여 패턴 라우팅(Routing)과 동박(Copper Pour)을 완성할 수 있다.",
+              "설계 규칙 검사(DRC)를 통해 미결선(Unrouted) 및 단락 오류를 모두 수정하고 제조용 거버(Gerber) 파일 및 드릴 데이터를 출력할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 회로도 심볼(Schematic Symbol)과 실물 패키지(DIP, SMD, SOIC, QFP) 치수 해독 역량 사전 확인\n• [시설·장비 점검] 전자캐드(OrCAD / Altium / PADS / KiCad) 라이선스 및 PC 환경, 부품 데이터시트 참조 자료 구비\n• [평가도구 구성] L.작업장평가(실시간 PCB 배치·배선 및 DRC 검증 70%) + A.포트폴리오(Gerber·BOM 산출물 30%)",
+            objectives: [
+              "부품 데이터시트의 패키지 치수도를 해독하여 SMD 및 스루홀(Through-hole) 부품의 풋프린트 패드와 실크스크린을 설계할 수 있다.",
+              "전류 용량과 신호 특성에 맞춰 배선 두께(Trace Width)와 이격거리(Clearance) Design Rule을 설정할 수 있다.",
+              "DRC 에러 0건을 달성하고 제조 공정에 필요한 층별 Gerber 파일(Top, Bottom, Solder Mask, Silk, Drill)을 추출할 수 있다."
+            ],
+            teachingMethod: "1단계(설계규칙 시범 15분): 회로도 Netlist 생성 후 PCB 에디터 반입 및 Design Rule(선폭·이격거리·비아 크기) 설정 시범\n2단계(개별 아트워크 실습 40분): 커넥터·발열부품·IC 중심 배치 후 디커플링 커패시터 근접 배치, 전원선 강화 배선 및 GND 폴리곤(Copper Pour) 씌우기 실습\n3단계(DRC 검수 지도 15분): DRC 리포트의 Unrouted Net 및 Clearance 위반 마커를 추적하여 1:1 교정 지도",
+            checkpoints: [
+              "넷리스트(Netlist) 반입 시 풋프린트 핀 번호와 회로도 심볼 핀 번호(특히 다이오드·트랜지스터·레귤레이터)가 일치하는가?",
+              "전원(VCC/GND) 라인의 선폭이 일반 신호선보다 충분히 넓게(예: 0.5mm~1.0mm 이상) 설정되었으며 예각(90도 이하) 배선이 없는가?",
+              "최종 DRC(Design Rule Check) 실행 결과 에러(Error) 및 미결선(Unrouted) 항목이 0건인가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "풋프린트 라이브러리 매핑 및 Netlist 반입", detail: "부품 패키지 규격 일치 및 Netlist 에러 0건 확인" },
+              { code: "요소2", title: "보드 외형 설정 및 부품 최적 배치·라우팅", detail: "전원/신호선 폭 분리 설정 및 45도 패턴 배선·GND 동박 완료" },
+              { code: "요소3", title: "DRC(설계규칙검사) 통과 및 Gerber 파일 추출", detail: "Clearance·Unrouted 에러 0건 검증 및 층별 캠 데이터 생성" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "풋프린트 생성 및 Netlist 반입 정확도", desc: "모든 부품의 패키지 치수와 핀 번호 매핑이 정확하며 Netlist 반입 오류가 0건임", scores: [25, 18, 10] },
+              { id: "r2", name: "부품 배치 및 패턴 라우팅(배선) 완성도", desc: "신호 흐름을 고려한 부품 배치, 전원선 폭 확보, 45도 배선 및 GND 동박 처리가 우수함", scores: [40, 30, 15] },
+              { id: "r3", name: "DRC 검증 통과 및 Gerber 산출물 출력", desc: "DRC 에러 및 미결선(Unrouted)이 0건이며 제조용 Gerber·Drill 파일이 누락 없이 생성됨", scores: [35, 25, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "부품 데이터시트 기반 풋프린트 정밀 제작", text: "부품 데이터시트의 패키지 규격도를 정확히 해독하여 SMD 및 스루홀 부품의 풋프린트 패드와 실크스크린을 오차 없이 생성·매핑함", neis: "하드웨어 PCB 설계 실습에서 부품 데이터시트의 기계적 치수도를 정밀 분석하여 표준 규격에 부합하는 풋프린트 라이브러리를 독자적으로 구축함." },
+              { id: "s2", label: "노이즈 저감 배치 및 45도 라우팅 우수", text: "전원부와 아날로그·디지털 신호부의 간섭을 최소화하여 부품을 배치하고, 디커플링 커패시터 근접 배치와 45도 패턴 배선 및 GND 폴리곤 설계를 완성함", neis: "전원 노이즈와 신호 간섭(Crosstalk)을 억제하기 위해 디커플링 커패시터를 IC 전원 핀에 최단 거리로 배치하고 45도 패턴 라우팅과 그라운드 플레인을 체계적으로 설계함." },
+              { id: "s3", label: "DRC 무결점 검증 및 Gerber 캠 데이터 생성", text: "선폭 및 클리어런스 디자인 룰(DRC) 검사를 통해 미결선과 단락 위험 요소를 완벽히 제거하고 양산용 거버(Gerber) 및 NC Drill 데이터를 정확히 산출함", neis: "설계 규칙 검사(DRC)를 활용하여 클리어런스 위반과 미결선 노드를 전수 검증·수정한 뒤 PCB 제조 공정에 즉시 투입 가능한 거버(Gerber) 데이터를 완벽히 산출함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "초기 트랜지스터·다이오드 핀 번호 매핑 보완", text: "초기 회로도 심볼과 PCB 풋프린트 간 핀 번호(Anode/Cathode, E/B/C) 매핑 착오가 일부 있었으나 데이터시트 대조를 통해 수정 완료함", neisFix: "초기 넷리스트 반입 과정에서 유극성 소자의 심볼-풋프린트 핀 번호 매핑 불일치 오류를 겪었으나 데이터시트 핀맵 대조를 통해 스스로 원인을 규명하고 교정함." },
+              { id: "w2", label: "전원 배선 두께(Trace Width) 차등 설정 지도", text: "전원 라인과 일반 신호선의 배선 두께를 동일하게 설정한 구간이 있어 전류 용량을 고려한 전원 배선 폭 확대 규칙을 보완 지도함", neisFix: "전류 용량에 따른 전원 배선 폭 설계 기준을 학습하여 주 전원 라인과 일반 신호선의 선폭을 차등 적용함으로써 회로의 열적·전기적 안정성을 개선함." }
+            ]
+          },
+          {
+            id: "unit_hw_circuit",
+            name: "하드웨어 회로설계 (1903200106_25v1 · 필수 45시간)",
+            totalHours: 45,
+            evalMethod: "L.작업장평가(70%) + C.서술형시험(30%)",
+            learningOutcome: "전자제품의 기능 요구사양에 맞춰 전원부, 센서 신호조절(증폭·필터)부, 구동부 회로를 설계하고 전자캐드(Schematic) 도면 작성 및 시뮬레이션을 통해 회로 동작 특성을 검증할 수 있다.",
+            criteria: [
+              "시스템 요구사양에 따라 정전압 레귤레이터 전원 회로와 수동·능동 소자(R, L, C, OP-Amp, TR)의 정격을 계산하고 선정할 수 있다.",
+              "전자캐드(Schematic Editor)를 활용하여 계층 구조 및 표준 심볼 규격에 맞는 회로도를 작도할 수 있다.",
+              "회로 시뮬레이션(SPICE) 및 시험 계측을 통해 주요 노드의 바이어스 전압과 입출력 파형 증폭도를 검증할 수 있다.",
+              "전기적 규칙 검사(ERC)를 수행하여 전원 누락·단락을 점검하고 부품명세서(BOM)를 작성할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 옴의 법칙, 분압·분류 법칙, 연산증폭기(OP-Amp) 반전·비반전 증폭기 이득 공식 숙지 여부 점검\n• [시설·장비 점검] 회로설계 CAD 및 SPICE 시뮬레이션 프로그램, 직류전원공급기, 오실로스코프, 함수발생기 점검",
+            objectives: [
+              "OP-Amp 증폭 회로 및 RC 필터 회로의 차단주파수·전압이득을 수식으로 계산하고 시뮬레이션 파형과 비교할 수 있다.",
+              "ERC(Electrical Rule Check)를 통해 플로팅 핀이나 전원 단락 오류 없는 표준 회로도와 BOM을 완성할 수 있다."
+            ],
+            teachingMethod: "1단계: 블록다이어그램(전원부 → 센서입력·증폭부 → 제어·출력부)별 설계 사양 분석\n2단계: 전자캐드 회로도 작도 및 SPICE 과도응답·주파수응답 시뮬레이션 실행\n3단계: ERC 오류 점검 및 부품명세서(BOM) 추출 실습",
+            checkpoints: [
+              "회로도 상의 모든 전원과 접지 심볼(VCC, GND)이 정상적으로 Net 연결되었으며 교차점(Junction) 표기가 정확한가?",
+              "ERC(전기적 규칙 검사) 실행 시 출력 핀끼리의 충돌이나 미연결 핀 경고가 없는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "전원부 및 OP-Amp 신호조절 회로 정격 설계", detail: "레귤레이터 입출력 커패시터 및 증폭기 저항비 계산 완료" },
+              { code: "요소2", title: "전자캐드 회로도(Schematic) 작도 및 ERC 검증", detail: "표준 심볼 배치, Net 라벨링 및 ERC 에러 0건 확인" },
+              { code: "요소3", title: "SPICE 시뮬레이션 파형 검증 및 BOM 산출", detail: "목표 전압이득·파형 출력 확인 및 표준 BOM 리포트 생성" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "회로 소자 정격 계산 및 설계 타당성", desc: "전원부 및 증폭·구동부 소자 정수 계산이 설계 사양에 정확히 부합함", scores: [30, 22, 12] },
+              { id: "r2", name: "회로도(Schematic) 작도 및 ERC 무결성", desc: "도면 가독성이 우수하고 ERC(전기적 규칙 검사) 에러가 0건임", scores: [40, 30, 15] },
+              { id: "r3", name: "시뮬레이션 파형 검증 및 BOM 작성", desc: "시뮬레이션 입출력 파형이 목표치와 일치하며 BOM이 정확히 작성됨", scores: [30, 22, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "전원부 및 OP-Amp 증폭회로 정수 설계 정확", text: "시스템 사양에 맞춰 정전압 레귤레이터 회로와 연산증폭기(OP-Amp) 이득 저항비를 정확히 산출하여 안정적인 신호조절 회로를 설계함", neis: "하드웨어 회로설계 과정에서 정전압 레귤레이터의 리플 저감 설계와 연산증폭기(OP-Amp)의 부궤환 저항비 계산을 통해 목표 이득에 부합하는 아날로그 신호조절 회로를 설계함." },
+              { id: "s2", label: "표준 Schematic 작도 및 ERC 완벽 검증", text: "전자캐드 표준 심볼과 계층적 Net 라벨을 활용해 가독성 높은 회로도를 작성하고 전기적 규칙 검사(ERC)로 결선 오류를 사전 차단함", neis: "전자캐드를 활용하여 기능 블록별로 구조화된 회로도(Schematic)를 작도하고 전기적 규칙 검사(ERC)와 부품명세서(BOM) 산출까지 무결점으로 수행함." },
+              { id: "s3", label: "SPICE 시뮬레이션 기반 과도·주파수 응답 분석", text: "SPICE 시뮬레이션을 통해 입력 신호 대비 출력 파형의 왜곡 여부와 대역폭 특성을 정밀 분석하여 설계 완성도를 검증함", neis: "SPICE 시뮬레이션을 통해 설계 회로의 과도 응답과 주파수 특성을 사전 검증하고 시뮬레이션 파형 데이터를 근거로 소자 파라미터를 최적화함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "ERC 전원 핀(Power Pin) 속성 연결 보완", text: "초기 회로도 작도 시 IC 숨김 전원 핀과 VCC Net 명칭 불일치로 ERC 경고가 발생하였으나 전원 심볼 통일로 즉시 해결함", neisFix: "초기 회로도 검증 단계에서 발생한 전원 Net 명칭 불일치에 따른 ERC 경고를 분석하여 전역 전원 심볼 규칙을 정립하고 도면 표준화를 달성함." }
+            ]
+          },
+          {
+            id: "unit_mcu_hw",
+            name: "로봇 주제어 장치(MCU) 하드웨어 회로 설계 (1903080120_22v3 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(70%) + C.서술형시험(30%)",
+            learningOutcome: "로봇 및 임베디드 기기의 주제어 장치(MCU) 사양을 분석하여 클록·리셋·전원 회로와 센서·액추에이터 인터페이스 회로를 설계하고 하드웨어 동작을 검증할 수 있다.",
+            criteria: [
+              "주제어 장치(MCU)의 핀 기능(GPIO, ADC, PWM, UART/I2C/SPI)을 파악하여 핀맵(Pin-map)을 할당할 수 있다.",
+              "MCU 안정 동작을 위한 정전압 전원부, 크리스탈 발진(Clock) 회로, 리셋(Reset) 및 디버깅 포트 회로를 설계할 수 있다.",
+              "모터 드라이버, 광센서·초음파센서 및 통신 모듈 연동을 위한 입출력 인터페이스 회로를 구성하고 신호 레벨을 정합할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 마이크로컨트롤러(AVR/ARM Cortex-M 등) 데이터시트 핀맵 및 기본 주변장치(ADC, PWM, UART) 개념 확인\n• [시설·장비 점검] MCU 개발보드, 오실로스코프, 로직애널라이저, 모터드라이버 및 센서 모듈 점검",
+            objectives: [
+              "MCU 최소 동작 회로(전원 디커플링, 외부 크리스탈 발진기, 풀업 리셋 회로)의 동작 원리를 설명하고 설계할 수 있다.",
+              "이기종 전압(5V 센서 ↔ 3.3V MCU) 간 레벨 시프터 및 포토커플러 절연 인터페이스 회로를 설계할 수 있다."
+            ],
+            teachingMethod: "1단계: MCU 데이터시트 기반 핀 할당표(Pin Assignment Table) 작성\n2단계: 코어 주변회로(Clock/Reset/ISP) 및 센서·구동기 인터페이스 회로 작도\n3단계: 테스트 펌웨어 다운로드 및 오실로스코프 클록·PWM 파형 실측",
+            checkpoints: [
+              "MCU의 각 전원 핀(VDD/VSS, AVDD)마다 디커플링 커패시터(100nF)가 누락 없이 설계되었는가?",
+              "통신 라인(UART TX/RX 교차 연결, I2C SDA/SCL 풀업 저항)이 규격에 맞게 반영되었는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "MCU 핀맵 할당 및 코어 회로(전원·클록·리셋) 설계", detail: "크리스탈 부하 커패시터 및 리셋 풀업·디커플링 회로 완성" },
+              { code: "요소2", title: "센서·모터 드라이버 입출력 인터페이스 회로 설계", detail: "ADC/PWM/UART/I2C 핀 매핑 및 전류·전압 보호회로 구성" },
+              { code: "요소3", title: "주제어 하드웨어 보드 전원·클록·입출력 파형 검증", detail: "정전압 출력, 발진 주파수 및 GPIO/PWM 제어 신호 실측 통과" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "MCU 코어 회로(전원·클록·리셋) 설계", desc: "발진기, 리셋, 아날로그·디지털 전원 분리 및 디커플링 설계가 정확함", scores: [35, 25, 14] },
+              { id: "r2", name: "센서·구동기 인터페이스 및 통신 정합", desc: "GPIO/ADC/PWM/통신 핀 할당과 풀업·보호 회로가 오차 없이 설계됨", scores: [35, 25, 14] },
+              { id: "r3", name: "하드웨어 신호 계측 및 트러블슈팅", desc: "오실로스코프를 통한 클록·PWM 파형 및 센서 입력 신호 검증이 완벽함", scores: [30, 22, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "MCU 코어(클록·리셋·전원분리) 회로 설계 치밀", text: "주제어 장치(MCU) 데이터시트를 기반으로 외부 크리스탈 발진 회로와 리셋 회로, 아날로그·디지털 전원 디커플링 회로를 규격에 맞게 설계함", neis: "로봇 주제어 장치(MCU) 하드웨어 설계에서 데이터시트 사양에 입각하여 클록 발진 회로와 리셋 안정화 회로, 아날로그·디지털 전원 분리 회로를 정교하게 설계함." },
+              { id: "s2", label: "센서·구동기 인터페이스 및 I2C/UART 정합 우수", text: "ADC, PWM, UART, I2C 등 주변장치 특성에 맞춰 핀맵을 효율적으로 할당하고 통신 풀업 저항 및 과전류 보호 회로를 정확히 반영함", neis: "다중 센서와 액추에이터 연동을 위해 MCU의 ADC·PWM·통신 포트를 최적으로 할당하고 신호 레벨 정합 및 노이즈 보호 회로를 체계적으로 구현함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "UART 송수신(TX-RX) 교차 결선 재확인", text: "초기 통신 커넥터 설계 시 TX-TX 직결 착오가 있었으나 송수신 교차(Cross) 결선 원리를 재확인하여 즉시 수정함", neisFix: "비동기 시리얼 통신(UART) 포트 설계 중 송수신 단자 교차 결선 원리를 명확히 재정립하여 디바이스 간 데이터 통신 신뢰성을 확보함." }
+            ]
+          },
+          {
+            id: "unit_opt_fw",
+            name: "광센서기기 펌웨어 구현 및 시제품 제작 (1903100606_18v1 · 필수 75시간)",
+            totalHours: 75,
+            evalMethod: "L.작업장평가(80%) + B.문제해결시나리오(20%)",
+            learningOutcome: "광센서기기의 하드웨어 사양에 맞춰 센서 데이터 수집(ADC)·필터링·제어 알고리즘 펌웨어를 C언어로 코딩하고, 시제품을 조립·디버깅하여 계측장비로 성능과 신뢰성을 검증할 수 있다.",
+            criteria: [
+              "광센서(포토다이오드, 포토트랜지스터, 조도·컬러센서 등)의 광전 변환 특성을 반영하여 ADC 샘플링 및 타이머 인터럽트 펌웨어를 구현할 수 있다.",
+              "수집된 광센서 신호의 노이즈를 제거하고 임계값에 따라 디스플레이 및 출력 장치를 구동하는 제어 알고리즘을 작성할 수 있다.",
+              "광센서기기 PCB 조립 및 하우징 시제품 제작을 수행하고 계측장비(오실로스코프, 멀티미터)를 활용해 오작동을 디버깅할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 임베디드 C언어 레지스터/HAL 제어, ADC 변환 및 시리얼 통신 디버깅 기초 역량 확인\n• [시설·장비 점검] 컴파일러(IDE) 및 펌웨어 다운로더, 광센서 모듈, 표준 광원, 디지털 오실로스코프, 멀티미터 구비\n• [클러스터링 안내] 광센서기기 펌웨어 구현(45h) + 시제품 제작(30h) + 계측장비 활용 유지정비(30h) 연계 실습 가능(단, HRD-Net 결과는 능력단위별 각각 산출·입력 필수, 매뉴얼 p.32)",
+            objectives: [
+              "광센서 아날로그 출력 전압을 MCU ADC로 정밀 샘플링하고 이동평균 필터 코드로 외란광 노이즈를 억제할 수 있다.",
+              "시제품 조립 후 오실로스코프와 멀티미터로 파형을 계측하여 하드웨어·펌웨어 통합 결함을 해결할 수 있다."
+            ],
+            teachingMethod: "1단계: 광센서 입출력 특성 곡선 분석 및 ADC/Timer 초기화 코드 작성\n2단계: 조도·광량 변화에 따른 PWM 출력 및 표시장치 제어 펌웨어 구현\n3단계: 시제품 보드 탑재 후 계측장비를 활용한 파형 계측 및 통합 디버깅",
+            checkpoints: [
+              "외부 환경광 변화에 의해 출력이 채터링(떨림)하지 않도록 히스테리시스(Hysteresis) 또는 이동평균 필터가 적용되었는가?",
+              "시제품 납땜 조립 후 전원 인가 전 멀티미터로 VCC-GND 단락 검사를 완료하였는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "광센서 ADC 샘플링 및 노이즈 필터링 펌웨어 코딩", detail: "타이머 인터럽트 주기 샘플링 및 이동평균 필터 구현 완료" },
+              { code: "요소2", title: "임계값 비교 제어 및 디스플레이·통신 출력 구현", detail: "광량 단계별 PWM/LED 제어 및 UART 상태 모니터링 정상 작동" },
+              { code: "요소3", title: "광센서 시제품 조립 및 계측장비 파형 검증·유지정비", detail: "오실로스코프 파형 계측 및 시제품 동작 신뢰성 검증 완료" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "광센서 데이터 수집(ADC) 및 필터 펌웨어", desc: "ADC 변환 코드와 외란광 노이즈 제거 알고리즘이 정확히 구현됨", scores: [35, 25, 14] },
+              { id: "r2", name: "출력 제어 알고리즘 및 통합 동작", desc: "광량 조건별 구동기(PWM/표시장치) 반응이 신속하고 오작동이 없음", scores: [35, 25, 14] },
+              { id: "r3", name: "시제품 제작 품질 및 계측장비 디버깅", desc: "시제품 조립·납땜 상태가 양호하고 오실로스코프 계측 검증을 정확히 수행함", scores: [30, 22, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "광센서 ADC 샘플링 및 노이즈 필터 펌웨어 탁월", text: "광센서 신호의 비선형성과 외란광 노이즈를 고려하여 타이머 인터럽트 기반 ADC 샘플링과 이동평균 필터 알고리즘을 C언어로 정교하게 구현함", neis: "광센서기기 펌웨어 구현 과정에서 외란광에 의한 측정 오차를 줄이기 위해 타이머 인터럽트 기반의 정주기 ADC 샘플링과 디지털 이동평균 필터 알고리즘을 직접 설계·구현함." },
+              { id: "s2", label: "시제품 조립 완성도 및 계측장비 파형 디버깅", text: "광센서 시제품 보드를 깔끔하게 조립하고 디지털 오실로스코프와 멀티미터로 주요 테스트 포인트(TP)의 파형을 실측하여 하드웨어·펌웨어 통합 안정성을 검증함", neis: "광센서 시제품을 제작하고 오실로스코프로 센서 출력 파형과 PWM 제어 신호를 정밀 계측·분석하여 하드웨어와 펌웨어 간의 타이밍 동기화를 완벽히 달성함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "임계값 경계 구간 채터링 방지(히스테리시스) 보완", text: "조도 임계값 경계에서 출력이 미세하게 떨리는 현상이 관찰되어 상·하한 문턱값을 분리하는 히스테리시스(Hysteresis) 조건문을 추가 지도함", neisFix: "센서 임계값 경계 구간에서 발생하는 출력 떨림 현상의 원인을 분석하고 상·하한 문턱값을 차등 설정하는 히스테리시스 제어 로직을 도입하여 동작 안정성을 개선함." }
+            ]
+          }
+        ]
+      },
+      elec_const: {
+        name: "전기공사산업기사 ('26년 신규 · 훈련코드 19010701)",
+        scheduleNote: "2026 외부평가: 정기 3회 · 4회 시행 ('26년 신규 종목 · 매뉴얼 p.133 순번 105)",
+        units: [
+          {
+            id: "unit_motor_ctrl",
+            name: "동력제어반공사 및 동력설비공사 (1901070121_22v4 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(80%) + F.평가자질문(20%)",
+            learningOutcome: "전동기 및 동력설비의 운전 요구조건에 맞춰 동력제어반(MCC) 시퀀스 설계도면을 해독하고, 차단기·전자접촉기(MC)·과전류계전기(EOCR)·타이머를 배치·결선하여 동력설비 공사와 시운전을 수행할 수 있다.",
+            criteria: [
+              "동력설비 단선결선도와 삼선결선도(시퀀스 제어 회로도)를 해독하여 전자접촉기(MC), EOCR, 릴레이, 타이머의 접점 핀 번호를 정확히 주기할 수 있다.",
+              "한국전기설비규정(KEC)에 따라 주회로(R·S·T / L1·L2·L3)와 보조제어회로의 전선 규격·색상을 선정하고 제어반 내부 기구를 견고하게 배치·배선할 수 있다.",
+              "Y-Δ 기동, 정역 운전, 수동·자동(셀렉터 스위치) 전환 및 인터록 회로를 오결선 없이 시공할 수 있다.",
+              "전원 투입 전 절연저항계 및 벨테스터기(도통시험기)로 주회로·제어회로의 절연 및 도통 상태를 점검하고 무부하·부하 시운전을 완료할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] MC, EOCR, 8핀/11핀 릴레이, 한시/순시 타이머 내부 접점 구조 및 주회로·보조회로 도면 해독 능력 확인\n• [시설·장비 점검] 개인별 작업 가벽, 배선용차단기(MCCB), MC1·MC2, EOCR, 타이머, 단자대, 제어용 전선 및 벨테스터기·절연저항계 구비\n• [작품 보관 규정] 작업형 실물 작품은 종료 후 1개월 보관 원칙이나, 공간 부족 시 안내판(촬영일시·장소·촬영자) 놓고 사진촬영 및 감독위원 확인 후 해체 가능(매뉴얼 p.6)",
+            objectives: [
+              "동력제어반 도면의 주회로와 보조회로를 구분하여 기구별 전원 핀과 a접점·b접점 번호를 오차 없이 주기할 수 있다.",
+              "단자대 1단자 2선 이하 접속 원칙과 전선 색상 규정을 준수하여 제어판 배선을 완성할 수 있다.",
+              "벨테스터기 도통 시험으로 자기유지·인터록·과전류 트립 회로를 사전 검증하고 안전하게 시운전할 수 있다."
+            ],
+            teachingMethod: "1단계(도면 해독 및 핀번호 주기 15분): 시퀀스 도면에 기구별 전원부(6-12, 2-7, 7-8)와 한시·순시 접점 번호 주기 및 교차 검수\n2단계(동력제어반 배선 시공 50분): 제어판 기구 수평·수직 고정 → 주회로 색상별 배선 → 보조회로 번호순 배선(형광펜 소거법)\n3단계(절연·도통 검사 및 시운전 25분): 벨테스터기 자가 점검 후 교사 입회하에 전원 투입 및 수동·자동·EOCR 트립 동작 확인",
+            checkpoints: [
+              "단자대(Terminal Block)의 한 나사 단자에 전선이 3가닥 이상 접속되지 않았는가? (동일 단자 2선 이하 결선 원칙)",
+              "주회로 상순(L1-흑, L2-적, L3-청, 보호도체-녹황) 색상 규정을 정확히 준수하였는가?",
+              "EOCR 테스트 트립 시 주회로 MC가 즉시 소자되고 경보 부저·램프 회로로 정상 전환되는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "동력제어반 시퀀스 도면 해독 및 기구 핀번호 주기", detail: "MC, EOCR, 타이머, 릴레이 전원·접점 핀 번호 100% 일치" },
+              { code: "요소2", title: "주회로(L1·L2·L3) 및 보조제어회로 제어판 배선 시공", detail: "KEC 전선 색상 준수, 단자대 2선 이하 접속 및 직각 배선 완료" },
+              { code: "요소3", title: "벨테스터기 도통 검사 및 수동·자동·인터록 시운전", detail: "단락 0건 확인 후 EOCR 트립·자기유지·한시동작 완벽 작동" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "시퀀스 도면 해독 및 핀번호 주기", desc: "MC, EOCR, 타이머, 릴레이의 전원 및 한시·순시 접점 핀 번호가 100% 정확함", scores: [25, 18, 10] },
+              { id: "r2", name: "동력제어반 주회로·보조회로 배선 품질", desc: "KEC 전선 색상 준수, 단자대 2선 이하 결선, 직각 굴곡 및 오결선 없음", scores: [40, 30, 15] },
+              { id: "r3", name: "도통·절연 검사 및 동력 시운전 완성도", desc: "EOCR 트립, 수동·자동 전환, 인터록 및 타이머 한시 동작이 완벽히 작동함", scores: [35, 25, 0] }
+            ],
+            strengths: [
+              { id: "s1", label: "동력제어반 시퀀스 도면 해독 및 핀번호 주기 정확", text: "전자접촉기(MC), 릴레이(RY), 타이머(T), EOCR 등 동력제어 기기의 내부 결선도를 완벽히 숙지하여 시퀀스 도면에 핀 번호를 오차 없이 주기함", neis: "동력제어반공사 실습에서 주회로와 보조제어회로의 운전 시나리오를 분석하여 전자접촉기(MC), 열동과전류계전기(EOCR), 타이머의 접점 핀 번호를 정확히 주기하고 배선 계획을 수립함." },
+              { id: "s2", label: "KEC 주회로 상색 구분 및 단자대 마감 우수", text: "한국전기설비규정(KEC)에 따른 주회로 상별 전선 색상과 단자대 1단자 2선 이하 접속 원칙을 철저히 준수하여 신뢰성 높은 제어반을 시공함", neis: "한국전기설비규정(KEC)의 배선 색상 규정과 단자대 접속 기준을 엄격히 준수하여 정역 운전 및 Y-Δ 기동 제어반을 깔끔하고 견고하게 시공함." },
+              { id: "s3", label: "벨테스터기 자가 도통검사로 무결점 시운전 달성", text: "전원 투입 전 벨테스터기를 활용해 주회로 단락 여부와 자기유지·인터록 접점의 도통 상태를 체계적으로 검증하여 1회 시운전 완성을 이끌어냄", neis: "시공 완료 후 벨테스터기와 절연저항계를 활용해 자기유지 및 인터록 구간의 도통 상태와 절연 성능을 사전 검증함으로써 단 한 번의 오작동 없이 시운전에 성공함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "타이머(T) 한시 a접점·b접점 공통선 결선 보완", text: "시간제어 회로 결선 시 타이머 한시 a접점(6번)과 b접점(5번) 번호 혼동이 일부 있었으나 공통단자(8번) 기준 결선 원리를 재확인하여 수정 완료함", neisFix: "타이머 계전기의 한시 접점 결선 과정에서 발생한 초기 혼선을 내부 접점 구조도 분석을 통해 극복하고 공통 단자 점퍼 배선을 정확히 구현함." },
+              { id: "w2", label: "셀렉터 스위치(수동/자동) 공통선 방향 점검", text: "셀렉터 스위치 후면의 수동(Manual)·자동(Auto) 접점 위치 확인에 다소 시간이 소요되어 벨테스터기 통전 확인 후 결선하는 루틴을 지도함", neisFix: "셀렉터 스위치의 수동·자동 회전 위치에 따른 접점 개폐 방향을 벨테스터기 통전 시험으로 먼저 확인한 뒤 결선하는 실무적 검수 습관을 확립함." }
+            ]
+          },
+          {
+            id: "unit_conduit_wiring",
+            name: "배관공사 · 배선공사 및 옥내조명공사 (1901070116_22v4 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(80%) + C.서술형시험(20%)",
+            learningOutcome: "배관·배선 설계도면과 시방서에 따라 합성수지관·금속관·가요전선관을 치수에 맞게 가공·굴곡·고정하고, 전선 입선 및 조명기구·스위치·콘센트 결선과 배관배선검사를 수행할 수 있다.",
+            criteria: [
+              "배관·배선 시공 상세도를 해독하여 전선관(CD관, PE관, 합성수지관, 금속관)의 재단 치수와 새들(Saddle)·박스 위치를 정확히 먹메김할 수 있다.",
+              "스프링 벤더 및 파이프 벤더를 활용해 전선관을 규격 곡률반경과 각도(90도, 오프셋)로 균열 없이 굴곡·가공하고 박스에 커넥터로 견고히 접속할 수 있다.",
+              "전선관 내에 규정 가닥수의 전선을 손상 없이 입선하고, 와이어스트리퍼·압착기를 사용해 링슬리브·와이어커넥터 접속 및 조명·배선기구 결선을 완료할 수 있다.",
+              "접지저항계와 절연저항계를 사용하여 배관·배선 회로의 절연저항 및 접지 연속성을 검사하고 불량 구간을 보수할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 옥내배선 기호(스위치, 3로·4로 스위치, 콘센트, 천장등, 벽등, 풀박스) 해독 및 3로 스위치 점멸 원리 이해도 확인\n• [시설·장비 점검] 전선관 커터, 스프링 벤더, 인써트, 새들, 팔각박스·사각박스, 3로 스위치, 램프 리셉터클, 절연저항계(Megger) 점검",
+            objectives: [
+              "설계도면 치수 오차(±5mm 이내)를 준수하여 전선관을 굴곡·재단하고 새들 간격 규정에 맞게 수평·수직 시공할 수 있다.",
+              "3로 스위치 및 타임스위치 제어 조명회로의 입선 가닥수를 정확히 산정하고 접속점 절연 처리를 완벽히 수행할 수 있다."
+            ],
+            teachingMethod: "1단계: 작업판 기준선 먹메김 및 기구·박스 중심 위치 고정\n2단계: 전선관 치수 계산 및 벤딩(90도 굴곡, S벤딩) 가공 후 새들 고정\n3단계: 전선 입선, 정션박스 내 와이어커넥터/슬리브 접속 및 조명 점등·절연저항 측정",
+            checkpoints: [
+              "전선관 굴곡 부위가 찌그러지거나 박스 커넥터 결합 시 로크너트·부싱이 누락되지 않았는가?",
+              "기구 단자(스위치, 리셉터클, 콘센트) 결선 시 피복 탈피 길이가 적절하여 구리심선(나전선)이 외부로 2mm 이상 노출되지 않았는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "배관 치수 먹메김 및 전선관 굴곡(벤딩)·새들 고정", detail: "도면 치수 오차 ±5mm 이내, 수평·수직 정렬 및 커넥터 체결 완료" },
+              { code: "요소2", title: "전선 입선 및 접속박스·조명기구(3로 스위치 등) 결선", detail: "전선 가닥수·색상 정확, 심선 노출 없음 및 정션박스 접속 양호" },
+              { code: "요소3", title: "배관배선 절연저항 측정 및 옥내조명 점등 검사", detail: "절연저항 기준치 통과 및 스위치별 조명 점멸 동작 100% 정상" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "전선관 굴곡 가공 및 배관 치수 정밀도", desc: "도면 치수(±5mm 이내)와 수평·수직도가 정확하고 새들 고정이 견고함", scores: [35, 25, 14] },
+              { id: "r2", name: "전선 입선, 접속 및 조명·배선기구 결선", desc: "전선 색상·가닥수가 정확하고 심선 노출 없이 접속·절연 상태가 우수함", scores: [35, 25, 14] },
+              { id: "r3", name: "절연·접지 검사 및 조명 점멸 동작", desc: "절연저항 측정 방법이 정확하고 3로 스위치 등 조명 회로가 정상 동작함", scores: [30, 22, 0] }
+            ],
+            strengths: [
+              { id: "s1", label: "전선관 굴곡(벤딩) 및 도면 치수 정밀 시공", text: "배관 시공도의 치수를 정확히 먹메김하고 스프링 벤더를 활용해 전선관의 90도 굴곡과 오프셋 가공을 도면 오차 범위(±5mm) 이내로 정밀하게 시공함", neis: "배관·배선공사 실습에서 시공 상세도를 바탕으로 기준선을 정확히 먹메김하고 전선관 굴곡 가공과 새들 고정을 수평·수직 오차 없이 정밀하게 시공함." },
+              { id: "s2", label: "3로·4로 조명회로 입선 및 기구 결선 완벽", text: "복잡한 다중 점멸(3로 스위치) 옥내조명 회로의 구간별 소요 전선 가닥수와 색상을 정확히 산출하여 입선하고 심선 노출 없이 기구 결선을 완성함", neis: "옥내조명공사의 다중 점멸 회로 원리를 분석하여 구간별 전선 가닥수를 정확히 산출·입선하고 접속부 절연 및 기구 결선을 안전 규정에 맞게 완수함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "합성수지관 굴곡 시 곡률반경 및 치수 오차 보완", text: "초기 전선관 90도 굴곡 가공 시 곡률반경 계산 착오로 박스 진입 치수에 미세한 오차가 있었으나 벤딩 기준점 보정법을 익혀 교정함", neisFix: "전선관 굴곡 가공 초기 곡률반경에 따른 신축 길이 오차를 경험하였으나 벤딩 기준점 보정 공식을 적용하여 도면 치수 정밀도를 크게 향상시킴." }
+            ]
+          },
+          {
+            id: "unit_substation",
+            name: "수변전설비검사 및 접지설비공사 (1901070125_22v4 · 필수 45시간)",
+            totalHours: 45,
+            evalMethod: "L.작업장평가(70%) + C.서술형시험(30%)",
+            learningOutcome: "수변전설비 단선결선도와 KEC 접지 규정에 따라 차단기·변압기·계기용변성기(CT·PT)·보호계전기의 외관 및 절연·접지저항을 측정하고 판정 기준에 따라 적합 여부를 진단할 수 있다.",
+            criteria: [
+              "수변전설비 단선결선도의 특고압·고압·저압 수전 기기(LA, DS/LBS, VCB, MOF, PT, CT, TR, OCR/OCGR)의 약호와 역할, 점검 절차를 설명할 수 있다.",
+              "절연저항계(Megger)와 접지저항계를 올바르게 조작하여 설비 절연저항 및 접지시스템의 접지저항값을 정밀 측정할 수 있다.",
+              "계측된 절연·접지 데이터와 보호계전기 동작 시험 결과를 KEC 판정 기준과 비교하여 부적합 원인을 진단하고 검사 결과 보고서를 작성할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 수변전 단선결선도 표준 심볼, KEC 전압 구분별 절연저항 기준값 및 통합·단독 접지시스템 개념 확인\n• [시설·장비 점검] 수변전 실습 장비, 디지털 절연저항계(250V/500V/1000V), 디지털 접지저항계(보조접지봉·리드선), 검전기 및 절연장갑 점검",
+            objectives: [
+              "수변전 주요 기기(LA, LBS, VCB, MOF, CT, PT, 변압기)의 정격과 점검 항목을 단선결선도와 매칭하여 설명할 수 있다.",
+              "절연저항계와 접지저항계의 측정 단자(E, P, C / L, E)를 정확히 결선하여 측정하고 KEC 기준 적합 여부를 판정할 수 있다."
+            ],
+            teachingMethod: "1단계: 수변전설비 단선결선도 해독 및 무전압·검전·방전 안전절차 시범\n2단계: 절연저항계 및 접지저항계(3전극법 E-P-C 일직선 배치) 실측 실습\n3단계: 측정값 기록 및 KEC 판정 기준 대조 보고서 작성",
+            checkpoints: [
+              "절연저항 측정 전 반드시 전원 차단(개방), 검전기로 무전압 확인, 잔류전하 방전 절차를 수행했는가?",
+              "접지저항계 측정 시 E(접지극)-P(전위보조극)-C(전류보조극) 순서와 이격거리(5~10m 일직선)를 올바르게 연결했는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "수변전 단선결선도 해독 및 무전압·검전 안전점검", detail: "주요 수변전 기기(LA, VCB, MOF, TR, CT/PT) 식별 및 사전 방전 완료" },
+              { code: "요소2", title: "절연저항계(Megger) 및 접지저항계(E-P-C) 정밀 측정", detail: "전압 등급별 시험전압 인가 및 3전극법 접지저항 측정값 도출" },
+              { code: "요소3", title: "KEC 기준 적합성 판정 및 수변전 검사성적서 작성", detail: "측정 데이터 기준치 비교 판정 및 부적합 조치방안 기술 완료" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "수변전 기기 식별 및 사전 안전절차 준수", desc: "수변전 기기 명칭·기능을 정확히 파악하고 검전·방전 안전절차를 완벽히 수행함", scores: [30, 22, 12] },
+              { id: "r2", name: "절연저항계·접지저항계 결선 및 측정 정확도", desc: "계측기 레인지 선택과 단자(L/E, E/P/C) 결선 및 측정값 판독이 정확함", scores: [40, 30, 15] },
+              { id: "r3", name: "KEC 기준 판정 및 검사보고서 작성", desc: "KEC 절연·접지 기준치를 정확히 적용하여 적합/부적합 판정 보고서를 완성함", scores: [30, 22, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "수변전 단선결선도 해독 및 안전절차 철저", text: "수변전설비 단선결선도의 수전·변전 기기(LA, VCB, MOF, CT, PT, TR)의 역할과 결선 구조를 정확히 파악하고 검전·방전 등 사전 안전절차를 철저히 준수함", neis: "수변전설비검사 실습에서 단선결선도를 기반으로 특고압 수변전 기기의 보호 협조 체계를 분석하고 무전압 검전 및 잔류전하 방전 안전절차를 모범적으로 수행함." },
+              { id: "s2", label: "절연저항·접지저항(3전극법) 계측 및 KEC 판정 우수", text: "절연저항계와 접지저항계(3전극법 E-P-C)를 규정에 맞게 조작하여 설비 절연·접지저항을 정밀 측정하고 한국전기설비규정(KEC) 기준에 의거해 적합 여부를 정확히 판정함", neis: "절연저항계와 3전극법 접지저항계를 올바르게 운용하여 전력설비의 절연 및 접지 성능을 실측하고 한국전기설비규정(KEC) 허용 기준에 따른 적합성 진단 보고서를 논리적으로 작성함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "접지저항계 보조전극(P·C) 단자 순서 재확인", text: "초기 접지저항 측정 시 전위보조극(P)과 전류보조극(C) 리드선 연결 순서를 혼동하였으나 3전극법 전위강하 원리를 복습하여 정확히 재측정함", neisFix: "접지저항 측정 초기 보조전극(P·C) 배치 순서에 착오가 있었으나 전위강하법의 측정 원리를 이론적으로 재정립하여 정확한 계측 데이터를 도출함." }
+            ]
+          }
+        ]
+      },
+      info_ind: {
+        name: "정보처리산업기사 (편성기준 v5.0 · C290)",
+        scheduleNote: "필수능력단위 375시간 · 직업기초능력 18시간 (CQ-Net 공식 편성기준)",
+        units: [
+          {
+            id: "unit_sql",
+            name: "SQL활용 (2001020413_19v4 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(70%) + C.서술형시험(30%)",
+            learningOutcome: "관계형 데이터베이스(RDBMS) 환경에서 데이터 모델(ERD)을 바탕으로 DDL, DML, DCL을 작성하고, 조인(JOIN)·서브쿼리·그룹함수 및 뷰·인덱스를 활용하여 업무 요구사항에 부합하는 SQL 쿼리를 구현·최적화할 수 있다.",
+            criteria: [
+              "개체-관계 모델(ERD)과 테이블 명세서를 분석하여 기본키(PK)·외래키(FK)·제약조건이 포함된 테이블 생성(DDL) 및 데이터 조작(INSERT, UPDATE, DELETE) SQL문을 작성할 수 있다.",
+              "다중 테이블 간의 관계를 분석하여 내부 조인(INNER JOIN), 외부 조인(OUTER JOIN) 및 서브쿼리를 활용한 데이터 조회(SELECT) 문을 정확히 작성할 수 있다.",
+              "GROUP BY, HAVING, 집계함수(SUM, AVG, COUNT) 및 정렬(ORDER BY) 구문을 조합하여 통계·집계 질의를 처리할 수 있다.",
+              "데이터 보안 및 조회 성능 향상을 위해 뷰(View), 시퀀스, 인덱스(Index)를 생성하고 실행 계획을 확인하여 SQL을 튜닝할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 관계형 데이터베이스 기본 개념(테이블, 컬럼, PK/FK, 정규화) 및 DBMS(Oracle / MySQL / MariaDB) 접속 환경 확인\n• [시설·장비 점검] 실습실 PC별 DBMS 서버·클라이언트(SQL Developer / DBeaver) 구동 상태 및 평가용 샘플 스키마 스크립트 배포 준비\n• [매뉴얼 참고] 매뉴얼 p.79~80의 HRD-Net 평가계획서 등록 화면 예시가 바로 정보처리산업기사의 'SQL활용(2001020413_19v4)' 능력단위입니다!",
+            objectives: [
+              "무결성 제약조건(PRIMARY KEY, FOREIGN KEY, NOT NULL, CHECK)을 준수하여 테이블을 생성하고 데이터를 입력·수정·삭제할 수 있다.",
+              "3개 이상의 테이블을 조인(JOIN)하고 그룹화(GROUP BY / HAVING)하여 업무 보고서용 집계 데이터를 정확히 추출할 수 있다."
+            ],
+            teachingMethod: "1단계: 업무 시나리오(학사관리/쇼핑몰/인사관리) ERD 분석 및 DDL 테이블 생성 실습\n2단계: 단계별 조회 과제(단일 테이블 조건 검색 → 다중 테이블 JOIN → 서브쿼리 및 집계함수) 개별 코딩\n3단계: 오답 쿼리(카티션 곱 발생, NULL 비교 오류 등) 디버깅 및 뷰(View) 생성 실습",
+            checkpoints: [
+              "다중 테이블 조인(JOIN) 시 ON 조인 조건절이 누락되어 카티션 곱(Cartesian Product)이 발생하지 않았는가?",
+              "NULL 값 비교 시 등호(= NULL)가 아닌 IS NULL / IS NOT NULL 연산자와 NVL/IFNULL 함수를 올바르게 사용했는가?",
+              "GROUP BY 절에 명시되지 않은 일반 컬럼을 SELECT 절에 단독으로 기술하여 구문 오류가 발생하지 않았는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "DDL 테이블·제약조건(PK/FK) 생성 및 DML 조작", detail: "참조 무결성 준수 테이블 생성 및 INSERT/UPDATE/DELETE 정상 수행" },
+              { code: "요소2", title: "다중 테이블 JOIN 및 서브쿼리·GROUP BY 집계 질의", detail: "INNER/OUTER JOIN 및 그룹함수(SUM/AVG/COUNT) 결과셋 100% 일치" },
+              { code: "요소3", title: "뷰(View)·인덱스 객체 생성 및 SQL 실행 검증", detail: "복합 뷰 생성·조회 및 인덱스 활용 쿼리 정합성 검증 완료" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "DDL 테이블·제약조건 및 DML 작성", desc: "PK/FK 참조 무결성 제약조건과 데이터 입력·수정·삭제 쿼리가 오류 없이 실행됨", scores: [30, 22, 12] },
+              { id: "r2", name: "다중 테이블 JOIN 및 그룹 집계 쿼리", desc: "INNER/OUTER JOIN, 서브쿼리, GROUP BY/HAVING 집계 결과가 모범답안과 일치함", scores: [45, 34, 18] },
+              { id: "r3", name: "뷰(View)·인덱스 활용 및 예외(NULL) 처리", desc: "뷰·인덱스 생성 구문과 NULL 치환·문자열 포맷 처리가 정확히 구현됨", scores: [25, 18, 10] }
+            ],
+            strengths: [
+              { id: "s1", label: "DDL 무결성 제약조건 및 다중 JOIN 쿼리 정확", text: "테이블 명세서의 기본키(PK)·외래키(FK) 참조 무결성 제약조건을 정확히 정의하고, 다중 테이블 INNER/OUTER JOIN과 서브쿼리를 결합해 복잡한 업무 데이터를 오차 없이 조회함", neis: "SQL활용 과정에서 개체-관계 모델(ERD)의 참조 무결성을 반영하여 스키마를 구축하고, 다중 테이블 조인(JOIN)과 상관 서브쿼리를 자유자재로 구사하여 복합 통계 데이터를 정확하게 추출함." },
+              { id: "s2", label: "GROUP BY 집계함수 및 View·Index 최적화 우수", text: "GROUP BY와 HAVING 조건절, 집계함수를 활용해 요구 조건에 부합하는 통계 결과를 산출하고 보안 및 조회 효율을 위한 뷰(View)와 인덱스를 능숙하게 구현함", neis: "대용량 데이터 집계를 위해 GROUP BY·HAVING 절과 윈도우 함수를 효과적으로 활용하고, 반복 조회 구문을 뷰(View)와 인덱스로 설계하여 데이터 접근성과 쿼리 성능을 높임." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "OUTER JOIN 시 NULL 치환(NVL/COALESCE) 보완", text: "외부 조인(LEFT OUTER JOIN) 결과에서 매칭 데이터가 없는 행의 NULL 값 연산 처리가 일부 누락되어 NVL/COALESCE 함수를 활용한 치환 기법을 보완 지도함", neisFix: "외부 조인(OUTER JOIN) 시 발생하는 NULL 값으로 인한 집계 오차 원인을 분석하고 COALESCE 및 NVL 치환 함수를 적용하여 데이터 정합성을 완벽히 확보함." }
+            ]
+          },
+          {
+            id: "unit_ui_impl",
+            name: "화면 구현 및 UI 테스트 (2001020225_23v6 · 필수 60시간)",
+            totalHours: 60,
+            evalMethod: "L.작업장평가(70%) + A.포트폴리오(30%)",
+            learningOutcome: "UI 설계서와 스토리보드를 바탕으로 웹 표준(HTML5, CSS3, JavaScript)을 준수하여 반응형 사용자 인터페이스 화면을 구현하고, 입력폼 유효성 검증 및 UI 사용성·결함 테스트를 수행할 수 있다.",
+            criteria: [
+              "UI 요구사항과 화면 설계서(와이어프레임·스토리보드)를 분석하여 시맨틱 태그(header, nav, main, section, footer) 기반의 HTML 구조를 마크업할 수 있다.",
+              "CSS3(Flexbox, Grid, Media Query)를 적용하여 레이아웃과 타이포그래피, 컬러 테마를 설계서와 일치하게 스타일링할 수 있다.",
+              "JavaScript DOM 조작과 이벤트 핸들러를 구현하여 사용자 입력폼 유효성 검사(Validation) 및 동적 화면 전환 기능을 구현할 수 있다.",
+              "구현된 화면에 대해 크로스 브라우징 및 UI 테스트 체크리스트를 수행하여 레이아웃 깨짐과 스크립트 오류를 수정할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] HTML5 시맨틱 태그, CSS 박스모델·Flexbox, JavaScript 기본 문법 및 DOM 이벤트 제어 이해도 확인\n• [시설·장비 점검] 코드 에디터(VS Code / Eclipse), 웹 브라우저 개발자 도구(DevTools), UI 설계서 및 평가용 에셋 파일 점검",
+            objectives: [
+              "웹 표준과 웹 접근성 지침을 준수하여 시맨틱 마크업과 반응형 CSS 레이아웃을 구현할 수 있다.",
+              "JavaScript로 필수 입력값 누락·형식 오류를 검증하고 브라우저 콘솔 에러 0건을 달성할 수 있다."
+            ],
+            teachingMethod: "1단계: 화면 설계서(스토리보드) 영역 분할 및 HTML5 시맨틱 구조 작성\n2단계: CSS Flexbox/Grid 레이아웃 배치 및 반응형 스타일 적용\n3단계: JavaScript 입력폼 유효성 검사(빈칸, 이메일·숫자 형식) 구현 및 개발자 도구(F12) UI 테스트",
+            checkpoints: [
+              "HTML 마크업 시 단순 div 나열이 아닌 시맨틱 태그와 form/label 연결, img alt 속성이 준수되었는가?",
+              "입력폼 제출(Submit) 시 필수 항목 미입력 상태에서 경고 메시지 출력 및 포커스(focus) 이동이 정상 작동하는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "UI 설계서 기반 HTML5 시맨틱 마크업 구조 구현", detail: "시맨틱 태그(header/nav/section/footer) 및 테이블·입력폼 마크업 완료" },
+              { code: "요소2", title: "CSS3 Flexbox/Grid 레이아웃 및 반응형 스타일링", detail: "설계서 규격 일치, 정렬·여백 완성도 및 화면 크기별 적응 완료" },
+              { code: "요소3", title: "JavaScript 폼 유효성 검증 및 UI 테스트 결함 수정", detail: "필수값 Validation 동작 확인 및 브라우저 콘솔 에러 0건 달성" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "HTML5 시맨틱 구조 및 웹 표준 준수", desc: "화면 설계서와 일치하는 시맨틱 마크업 및 폼·테이블 구조가 정확히 작성됨", scores: [30, 22, 12] },
+              { id: "r2", name: "CSS3 레이아웃 및 스타일 완성도", desc: "Flexbox/Grid를 활용한 화면 배치와 색상·폰트·여백 스타일이 설계서와 일치함", scores: [35, 25, 14] },
+              { id: "r3", name: "JS 동적 제어·유효성 검증 및 UI 테스트", desc: "입력폼 유효성 검증 스크립트가 완벽히 동작하며 UI 테스트 결함이 0건임", scores: [35, 25, 14] }
+            ],
+            strengths: [
+              { id: "s1", label: "웹 표준 시맨틱 마크업 및 CSS 레이아웃 탁월", text: "화면 설계서(스토리보드)의 구조를 분석하여 HTML5 시맨틱 태그와 CSS3 Flexbox/Grid 레이아웃으로 픽셀 오차 없이 정교하고 반응성 높은 UI를 구현함", neis: "화면 구현 및 UI 테스트 과정에서 웹 표준과 접근성을 준수한 HTML5 시맨틱 마크업과 CSS3 Flexbox·Grid 기법을 적용해 설계서와 일치하는 반응형 인터페이스를 완성함." },
+              { id: "s2", label: "JS 입력폼 유효성 검증 및 UI 결함 디버깅 우수", text: "JavaScript 이벤트 리스너와 정규표현식을 활용해 사용자 입력 데이터의 유효성 검증 로직을 빈틈없이 구현하고 브라우저 개발자 도구로 UI 결함을 신속히 조치함", neis: "JavaScript DOM 제어와 이벤트 핸들링을 통해 실시간 입력폼 유효성 검증(Validation) 로직을 구현하고, UI 사용성 테스트를 통해 예외 입력 시의 화면 결함을 완벽히 해결함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "폼 기본 제출(preventDefault) 제어 보완", text: "초기 폼 유효성 실패 시에도 페이지가 새로고침되는 현상이 있었으나 이벤트 객체 제어(preventDefault) 및 return false 원리를 익혀 즉시 보완함", neisFix: "입력폼 제출 이벤트 처리 중 브라우저 기본 동작 제어(preventDefault) 원리를 체득하여 유효성 미통과 시의 비정상 화면 전환 문제를 해결함." }
+            ]
+          },
+          {
+            id: "unit_swtest",
+            name: "애플리케이션 테스트 수행 및 프로그래밍 언어 활용 (2001020227_23v6 · 필수 105시간)",
+            totalHours: 105,
+            evalMethod: "B.문제해결시나리오(60%) + C.서술형시험(40%)",
+            learningOutcome: "프로그래밍 언어로 구현된 애플리케이션 모듈에 대해 동치 분할·경계값 분석 기반의 테스트 케이스를 설계하여 단위·통합 테스트를 수행하고, 검출된 결함을 디버깅하여 품질을 검증할 수 있다.",
+            criteria: [
+              "요구사항 정의서와 모듈 설계서를 분석하여 블랙박스(동치 분할, 경계값 분석) 및 화이트박스(조건·분기 커버리지) 테스트 케이스를 작성할 수 있다.",
+              "단위·통합 테스트 시나리오를 실행하여 예상 결과와 실제 실행 결과를 비교하고 결함(Bug) 여부를 판별할 수 있다.",
+              "검출된 런타임 예외(NullPointer, IndexOutOfBounds 등)와 비즈니스 로직 오류의 원인을 추적하여 코드를 수정하고 회귀(Regression) 테스트를 완료할 수 있다."
+            ],
+            prepGuide: "• [사전 진단] 프로그래밍 언어(Java/Python/C) 제어문·객체지향·예외처리 및 디버거 사용법 숙지 여부 확인\n• [시설·장비 점검] IDE 통합개발환경, 단위 테스트 프레임워크(JUnit 등), 테스트 케이스 및 결함 관리 보고서 양식 준비",
+            objectives: [
+              "동치 분할과 경계값 분석 기법으로 누락 없는 테스트 케이스 명세서를 작성할 수 있다.",
+              "디버거 중단점(Breakpoint)으로 결함 원인을 규명하고 예외 방어코드를 패치하여 모든 테스트 케이스를 통과시킬 수 있다."
+            ],
+            teachingMethod: "1단계: 의도적 결함(경계값 등호 오류, Null 미처리, 배열 인덱스 오류)이 포함된 모듈 배포\n2단계: 학생 개별 테스트 케이스 작성 및 테스트 실행 결과 기록\n3단계: 결함 리포트 작성, 소스코드 패치 및 회귀 테스트 검증",
+            checkpoints: [
+              "정상 입력값 외에 경계값(최솟값-1, 최솟값, 최댓값, 최댓값+1)과 비정상 입력(Null, 음수)이 테스트 케이스에 모두 반영되었는가?",
+              "코드 수정 후 기존 정상 케이스까지 재실행하는 회귀 테스트(Regression Test)를 거쳤는가?"
+            ],
+            labSteps: [
+              { code: "요소1", title: "동치분할·경계값 분석 기반 테스트케이스 설계", detail: "정상·경계·예외 입력값 및 예상 결과 명세서 작성 완료" },
+              { code: "요소2", title: "단위·통합 테스트 수행 및 결함(Defect) 식별 기록", detail: "테스트 시나리오 전수 실행 및 불일치 결함 재현 경로 기록" },
+              { code: "요소3", title: "소스코드 디버깅 패치 및 회귀(Regression) 테스트", detail: "예외 방어코드 및 조건식 수정 후 전 케이스 Pass 달성" }
+            ],
+            rubricItems: [
+              { id: "r1", name: "테스트 케이스(동치분할·경계값) 설계", desc: "경계값 및 예외 입력 조건을 빠짐없이 도출하여 테스트 케이스 명세서를 작성함", scores: [35, 25, 14] },
+              { id: "r2", name: "단위·통합 테스트 수행 및 결함 식별", desc: "시나리오별 예상결과와 실제결과를 정확히 대조하여 숨겨진 결함을 모두 검출함", scores: [35, 25, 14] },
+              { id: "r3", name: "소스코드 디버깅 및 회귀 테스트 검증", desc: "결함 원인을 정확히 규명하고 방어코드를 수정하여 재검증을 통과함", scores: [30, 22, 12] }
+            ],
+            strengths: [
+              { id: "s1", label: "블랙박스·화이트박스 테스트케이스 설계 치밀", text: "동치 분할과 경계값 분석 기법을 적용해 예외 입력 상황을 빠짐없이 검증하는 테스트 케이스를 작성하고 단위·통합 테스트를 체계적으로 수행함", neis: "소프트웨어 품질 검증을 위해 동치 분할 및 경계값 분석 기반의 테스트 케이스를 치밀하게 설계하고 경계 조건에서의 예외 처리 로직을 실증적으로 검증함." },
+              { id: "s2", label: "결함(Bug) 원인 추적 및 방어코드 패치 탁월", text: "테스트 과정에서 발견된 런타임 예외와 조건식 결함의 재현 경로를 명확히 기록하고 방어 코드를 작성하여 결함을 신속히 조치함", neis: "단위·통합 테스트 중 발생한 알고리즘 경계 오류와 런타임 예외의 원인을 디버거 추적으로 규명하고 방어적 프로그래밍 기법으로 코드를 리팩터링하여 소프트웨어 신뢰성을 확보함." }
+            ],
+            weaknesses: [
+              { id: "w1", label: "비정상 입력(Null/빈 문자열) 예외 방어 보완", text: "정상 입력 시나리오 위주로 초기 테스트를 구성하여 Null 값이나 빈 문자열 유입 시 예외 처리가 일부 누락되었으나 유효성 검증 코드를 추가하여 보완함", neisFix: "비정상 입력값(Null 및 빈 문자열) 유입 시 발생할 수 있는 런타임 예외 상황을 추가로 도출하고 사전 유효성 검증 로직을 보강하여 프로그램 안정성을 높임." }
+            ]
+          }
+        ]
+      }
+    };
+
+    // ==================== IN-MEMORY STUDENT ROSTER STATE ====================
+    let students = [
+      { id: "st1", examNo: "26-0301", name: "김도윤", level: "high", score: 96, regHours: 60, makeupHours: 0, strengths: ["s1", "s2", "s3"], weaknesses: [], rubricTiers: [0, 0, 0] },
+      { id: "st2", examNo: "26-0302", name: "이서연", level: "high", score: 92, regHours: 58, makeupHours: 2, strengths: ["s1", "s2"], weaknesses: ["w1"], rubricTiers: [0, 0, 1] },
+      { id: "st3", examNo: "26-0303", name: "박지훈", level: "mid",  score: 85, regHours: 54, makeupHours: 0, strengths: ["s1", "s2"], weaknesses: ["w1"], rubricTiers: [0, 1, 1] },
+      { id: "st4", examNo: "26-0304", name: "최민재", level: "low",  score: 72, regHours: 46, makeupHours: 2, strengths: ["s1"], weaknesses: ["w1", "w2"], rubricTiers: [1, 1, 2] },
+      { id: "st5", examNo: "26-0305", name: "정하은", level: "fail", score: 54, regHours: 48, makeupHours: 2, strengths: [], weaknesses: ["w1", "w2"], rubricTiers: [2, 2, 2] }
+    ];
+
+    let activeCourseKey = "elec_ind";
+    let activeUnitId = "unit_pcb";
+    let activeStudentId = "st1";
+    let activeStage = 4;
+
+    // Step 2 NCS Practice Verification Switch State (Form UI inspired by toggle switches)
+    let labStepStates = [1, 1, 1];
+
+    // ==================== INITIALIZATION ====================
+    window.addEventListener("DOMContentLoaded", () => {
+      populateUnits();
+      renderStageContent();
+      renderStudentPills();
+      syncActiveStudentUI();
+      renderMatrixTable();
+      calculateDeadlines();
+      updateEvidenceChecklist();
+      cleanAndPreviewRoster();
+      renderNcsLabSwitches();
+      calcPartialReeval();
+    });
+
+    function getCurrentUnit() {
+      const course = COURSE_DATA[activeCourseKey];
+      return course.units.find(u => u.id === activeUnitId) || course.units[0];
+    }
+
+    function getActiveStudent() {
+      return students.find(s => s.id === activeStudentId) || students[0];
+    }
+
+    // ==================== TOP TAB & COURSE/STAGE SELECTION ====================
+    function switchTab(tab) {
+      ["eval", "matrix", "admin"].forEach(t => {
+        const view = document.getElementById("view-" + t);
+        const btn = document.getElementById("tabBtn-" + t);
+        if (t === tab) {
+          view.classList.remove("hidden");
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all bg-emerald-600 text-white shadow";
+        } else {
+          view.classList.add("hidden");
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all text-slate-400 hover:text-white";
+        }
+      });
+      if (tab === "matrix") {
+        renderMatrixTable();
+      }
+    }
+
+    function selectQualification(courseKey) {
+      activeCourseKey = courseKey;
+      document.getElementById("courseSelect").value = courseKey;
+
+      ["elec_ind", "elec_const", "info_ind"].forEach(k => {
+        const card = document.getElementById("courseCard-" + k);
+        if (k === courseKey) {
+          card.className = "p-2.5 rounded-xl border text-left transition-all bg-emerald-600/20 border-emerald-500 text-white shadow";
+        } else {
+          card.className = "p-2.5 rounded-xl border text-left transition-all bg-slate-800/80 border-slate-700 text-slate-300 hover:border-slate-500";
+        }
+      });
+
+      document.getElementById("courseScheduleBadge").textContent = COURSE_DATA[courseKey].scheduleNote;
+
+      populateUnits();
+      resetSwitchesForUnit();
+      renderStageContent();
+      renderNcsLabSwitches();
+      syncActiveStudentUI();
+      renderMatrixTable();
+    }
+
+    function selectStage(stageNum) {
+      activeStage = stageNum;
+      const stageNames = {
+        1: "STEP 1 (학생 지도 전: 기본계획 · NCS 학습결과·평가기준 수립)",
+        2: "STEP 2 (학생 지도 중: 학습목표 · 지도방법 · 능력단위요소 점검 스위치)",
+        3: "STEP 3 (평가 중: 현장 감독 수칙 · 세부 평가요소 루브릭 딸깍 채점)",
+        4: "STEP 4 (평가 이후 · 딸깍 채점 · 재평가 90% 환산 · NEIS 세특 생성)"
+      };
+      document.getElementById("currentStageIndicator").textContent = "현재 단계: " + stageNames[stageNum];
+
+      [1, 2, 3, 4].forEach(n => {
+        const panel = document.getElementById("stagePanel-" + n);
+        const btn = document.getElementById("stageBtn-" + n);
+        if (n === stageNum) {
+          panel.classList.remove("hidden");
+          btn.className = "p-3 rounded-xl border text-left transition-all step-node-active";
+        } else {
+          panel.classList.add("hidden");
+          btn.className = "p-3 rounded-xl border border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-600";
+        }
+      });
+
+      renderStageContent();
+      if (stageNum === 2) renderNcsLabSwitches();
+    }
+
+    function populateUnits() {
+      const course = COURSE_DATA[activeCourseKey];
+      const unitSelect = document.getElementById("unitSelect");
+      unitSelect.innerHTML = course.units.map(u => `<option value="${u.id}">${u.name}</option>`).join("");
+      activeUnitId = course.units[0].id;
+      updateUnitMetaBadges();
+    }
+
+    function handleCourseChange() {
+      const val = document.getElementById("courseSelect").value;
+      selectQualification(val);
+    }
+
+    function handleUnitChange() {
+      activeUnitId = document.getElementById("unitSelect").value;
+      updateUnitMetaBadges();
+      resetSwitchesForUnit();
+      renderStageContent();
+      renderNcsLabSwitches();
+      syncActiveStudentUI();
+      renderMatrixTable();
+    }
+
+    function updateUnitMetaBadges() {
+      const unit = getCurrentUnit();
+      const minHours = Math.ceil(unit.totalHours * 0.75);
+      document.getElementById("unitTotalHoursBadge").textContent = `${unit.totalHours}h (75%: ${minHours}h↑)`;
+      document.getElementById("unitMethodBadge").textContent = unit.evalMethod;
+      const attRange = document.getElementById("attRangeInput");
+      if (attRange) attRange.max = unit.totalHours;
+    }
+
+    function resetSwitchesForUnit() {
+      const unit = getCurrentUnit();
+      students.forEach(st => {
+        if (st.level === "high") st.regHours = unit.totalHours;
+        else if (st.level === "mid") st.regHours = Math.round(unit.totalHours * 0.9);
+        else st.regHours = Math.ceil(unit.totalHours * 0.8);
+
+        st.rubricTiers = unit.rubricItems.map(() => (st.level === "high" ? 0 : st.level === "mid" ? 1 : 2));
+        if (st.level === "high") {
+          st.strengths = unit.strengths.map(x => x.id);
+          st.weaknesses = [];
+        } else if (st.level === "mid") {
+          st.strengths = unit.strengths.slice(0, 2).map(x => x.id);
+          st.weaknesses = unit.weaknesses.slice(0, 1).map(x => x.id);
+        } else if (st.level === "low") {
+          st.strengths = unit.strengths.slice(0, 1).map(x => x.id);
+          st.weaknesses = unit.weaknesses.map(x => x.id);
+        } else {
+          st.strengths = [];
+          st.weaknesses = unit.weaknesses.map(x => x.id);
+        }
+      });
+    }
+
+    // ==================== RENDER STAGE 1, 2, 3 CONTENT ====================
+    function renderStageContent() {
+      const unit = getCurrentUnit();
+      const st = getActiveStudent();
+
+      // Stage 1: 지도 전
+      document.getElementById("s1UnitTitle").textContent = `[${unit.name}] 학습결과 및 평가기준 수립 가이드`;
+      document.getElementById("s1LearningOutcome").textContent = unit.learningOutcome;
+      document.getElementById("s1CriteriaList").innerHTML = unit.criteria.map(c => `<li>${c}</li>`).join("");
+      document.getElementById("s1PrepGuide").innerHTML = unit.prepGuide.split("\n").map(line => `<p>${line}</p>`).join("");
+      document.getElementById("s1MethodDetail").textContent = `본 능력단위는 편성기준 Pool에서 [${unit.evalMethod}]을 선정하여 수행과정·산출물과 실무 이론을 균형 있게 평가하며, 직업계고 학업성적관리규정상 전문교과Ⅱ 실무과목 수행평가(100%)와 1:1 일원화하여 운영할 수 있습니다(매뉴얼 p.16, p.46).`;
+
+      // Stage 2: 지도 중
+      document.getElementById("s2UnitTitle").textContent = `[${unit.name}] 수업 중 학습목표 & 실습 지도 방법`;
+      document.getElementById("s2ObjectivesList").innerHTML = unit.objectives.map(o => `<li>${o}</li>`).join("");
+      document.getElementById("s2TeachingMethod").innerHTML = unit.teachingMethod.split("\n").map(l => `<p>${l}</p>`).join("");
+      document.getElementById("s2CheckpointsList").innerHTML = unit.checkpoints.map(cp => `<li>${cp}</li>`).join("");
+      document.getElementById("simTargetStudentName").textContent = `${st.name} (${st.examNo})`;
+
+      // Stage 3: 평가 중 (세부 평가요소별 상·중·하 루브릭 채점표)
+      document.getElementById("s3ActiveStudentName").textContent = `${st.name} (${st.examNo})`;
+      document.getElementById("s3TotalScoreBadge").textContent = `합계: ${st.score} / 100점`;
+
+      if (!st.rubricTiers || st.rubricTiers.length !== unit.rubricItems.length) {
+        st.rubricTiers = unit.rubricItems.map(() => (st.level === "high" ? 0 : st.level === "mid" ? 1 : 2));
+      }
+
+      const rBody = document.getElementById("s3RubricTableBody");
+      rBody.innerHTML = unit.rubricItems.map((item, idx) => {
+        const chosenTier = st.rubricTiers[idx] || 0;
+        return `
+          <tr class="hover:bg-slate-800/40">
+            <td class="py-2.5 px-3 font-bold text-white">${idx + 1}. ${item.name}</td>
+            <td class="py-2.5 px-3 text-slate-300">${item.desc}</td>
+            ${[0, 1, 2].map(tierIdx => {
+              const pts = item.scores[tierIdx];
+              const isSelected = chosenTier === tierIdx;
+              const cls = isSelected ? "rubric-cell-active" : "bg-slate-800/60 border-slate-700 text-slate-400 hover:text-white";
+              const tierLabel = tierIdx === 0 ? "상" : tierIdx === 1 ? "중" : "하";
+              return `
+                <td class="py-2 px-1.5 text-center">
+                  <button onclick="selectRubricCell(${idx}, ${tierIdx})" class="w-full py-1.5 px-2 rounded-lg border transition ${cls}">
+                    ${tierLabel} (${pts}점)
+                  </button>
+                </td>
+              `;
+            }).join("")}
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function selectRubricCell(itemIdx, tierIdx) {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+      st.rubricTiers[itemIdx] = tierIdx;
+      const total = unit.rubricItems.reduce((acc, item, idx) => acc + item.scores[st.rubricTiers[idx] || 0], 0);
+      updateStudentScore(total);
+      renderStageContent();
+      showToast(`✅ [${st.name}] 세부 평가요소 채점 합계가 ${total}점으로 자동 반영되었습니다!`);
+    }
+
+    function updateS1Checklist() {
+      const chks = document.querySelectorAll(".s1-chk");
+      let done = 0;
+      chks.forEach(c => { if (c.checked) done++; });
+      document.getElementById("s1ChecklistCount").textContent = `${done} / ${chks.length} 완료`;
+    }
+
+    function copyStage1Plan() {
+      const unit = getCurrentUnit();
+      const course = COURSE_DATA[activeCourseKey];
+      const text = `[서식 1: 내부평가 기본계획서 요약 - ${course.name}]\n• 능력단위명: ${unit.name}\n• 평가방법 및 배점: ${unit.evalMethod}\n• 학습결과: ${unit.learningOutcome}\n• 세부 평가기준:\n${unit.criteria.map(c => "  - " + c).join("\n")}\n• 평가방침: 타당성·신뢰성·유연성·공정성 4대 원칙 준수 및 시험위원(감독·채점) 2인 이상 위촉`;
+      copyStringToClipboard(text, "📋 [서식 1: 내부평가 기본계획서] 학습결과 및 평가기준이 복사되었습니다!");
+    }
+
+    // ==================== STAGE 2: ONE-CLICK NCS PRACTICE VERIFICATION BOARD ====================
+    function renderNcsLabSwitches() {
+      const unit = getCurrentUnit();
+      const container = document.getElementById("ncsLabSwitchContainer");
+      if (!container) return;
+
+      container.innerHTML = unit.labSteps.map((step, idx) => {
+        const isOn = labStepStates[idx] === 1;
+        const cardStyle = isOn
+          ? "border-emerald-500 bg-emerald-950/40 shadow"
+          : "border-slate-700 bg-slate-900/80";
+        const badgeStyle = isOn
+          ? "bg-emerald-500 text-slate-950 font-bold"
+          : "bg-amber-500/20 text-amber-300 border border-amber-500/40";
+
+        return `
+          <button onclick="toggleLabStep(${idx})" class="w-full p-3.5 rounded-xl border ${cardStyle} text-left transition-all flex items-center justify-between gap-3">
+            <div class="space-y-0.5">
+              <div class="flex items-center gap-2">
+                <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-emerald-300 border border-slate-700">${step.code}</span>
+                <span class="text-xs sm:text-sm font-bold text-white">${step.title}</span>
+              </div>
+              <p class="text-[11px] text-slate-400 pl-1">${step.detail}</p>
+            </div>
+            <span class="px-3 py-1 rounded-lg text-xs font-mono whitespace-nowrap ${badgeStyle}">
+              ${isOn ? "🟢 PASS (달성)" : "🟠 보완필요"}
+            </span>
+          </button>
+        `;
+      }).join("");
+
+      const passCount = labStepStates.filter(x => x === 1).length;
+      const pct = Math.round((passCount / unit.labSteps.length) * 100);
+      document.getElementById("simProgressBadge").textContent = `${passCount} / ${unit.labSteps.length} 단계 PASS (${pct}%)`;
+      document.getElementById("simProgressBar").style.width = `${pct}%`;
+
+      const eqBox = document.getElementById("simEquationBox");
+      if (passCount === 3) {
+        eqBox.textContent = `✅ [${unit.name.split("(")[0].trim()}] 전 단계 수행준거 100% 달성 → 예상 성취도: 5수준(A, 95점↑)`;
+      } else if (passCount === 2) {
+        eqBox.textContent = `🔵 2/3 단계 달성 (일부 보완 지도 중) → 예상 성취도: 4수준(B, 85점 내외)`;
+      } else if (passCount === 1) {
+        eqBox.textContent = `🟡 1/3 단계 달성 (기초 수행) → 예상 성취도: 3~2수준(C·D, 70점 내외 · 집중 순회지도 요망)`;
+      } else {
+        eqBox.textContent = `🚨 미달성 상태 → 기초 작업 절차 시범 및 1:1 재교육 필요`;
+      }
+    }
+
+    function toggleLabStep(idx) {
+      labStepStates[idx] = labStepStates[idx] ? 0 : 1;
+      renderNcsLabSwitches();
+    }
+
+    function setAllLabSwitches(val) {
+      labStepStates = [val, val, val];
+      renderNcsLabSwitches();
+    }
+
+    function sendLabResultToStudent() {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+      const passCount = labStepStates.filter(x => x === 1).length;
+
+      if (passCount === 3) {
+        setStudentLevel("high");
+      } else if (passCount === 2) {
+        setStudentLevel("mid");
+      } else if (passCount === 1) {
+        setStudentLevel("low");
+      } else {
+        setStudentLevel("fail");
+      }
+
+      selectStage(4);
+      showToast(`⚡ [${st.name}] 학생의 NCS 실습 점검 결과(${passCount}/3 PASS)가 STEP 4 평가 및 NEIS 세특에 자동 반영되었습니다!`);
+    }
+
+    // ==================== STUDENT ROSTER & LEVEL/SWITCH CONTROLS ====================
+    function renderStudentPills() {
+      const container = document.getElementById("studentRosterPills");
+      document.getElementById("studentCountBadge").textContent = `${students.length}명`;
+      const unit = getCurrentUnit();
+
+      container.innerHTML = students.map(st => {
+        const isActive = st.id === activeStudentId;
+        const totalAtt = Math.min(unit.totalHours, st.regHours + st.makeupHours);
+        const attRate = Math.round((totalAtt / unit.totalHours) * 100);
+        const isPass = st.score >= 60 && attRate >= 75;
+        const dotColor = isPass ? "bg-emerald-400" : "bg-rose-400";
+        const activeStyle = isActive
+          ? "bg-emerald-600/25 border-emerald-400 text-white shadow-md"
+          : "bg-slate-800/80 border-slate-700 text-slate-300 hover:border-slate-500";
+
+        return `
+          <button onclick="selectStudent('${st.id}')" class="p-2 rounded-xl border text-left transition-all flex items-center justify-between ${activeStyle}">
+            <div class="truncate">
+              <div class="text-xs font-bold flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full ${dotColor}"></span>
+                <span class="truncate">${st.name}</span>
+              </div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${st.score}점 · 출석 ${attRate}%</div>
+            </div>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900/90 text-slate-300 font-mono">${getNeisGradeShort(st.score)}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function getNeisGradeShort(score) {
+      if (score >= 90) return "5수준(A)";
+      if (score >= 80) return "4수준(B)";
+      if (score >= 70) return "3수준(C)";
+      if (score >= 60) return "2수준(D)";
+      return "1수준(E)";
+    }
+
+    function levelLabelShort(lvl) {
+      if (lvl === "high") return "상(A)";
+      if (lvl === "mid") return "중(B)";
+      if (lvl === "low") return "하(C·D)";
+      return "재평가(E)";
+    }
+
+    function selectStudent(id) {
+      activeStudentId = id;
+      renderStudentPills();
+      renderStageContent();
+      syncActiveStudentUI();
+    }
+
+    function toggleQuickAddForm() {
+      const drawer = document.getElementById("quickAddDrawer");
+      drawer.classList.toggle("hidden");
+    }
+
+    function addNewStudent() {
+      const nameInput = document.getElementById("newStudentName");
+      const lvlSelect = document.getElementById("newStudentLevel");
+      const rawName = (nameInput.value || "").replace(/\s+/g, "");
+      if (!rawName) {
+        showToast("⚠️ 학생 성명을 공백 없이 입력해주세요.");
+        return;
+      }
+      const unit = getCurrentUnit();
+      const lvl = lvlSelect.value;
+      const defaultScore = lvl === "high" ? 95 : lvl === "mid" ? 85 : lvl === "low" ? 72 : 54;
+      const newId = "st" + Date.now();
+      const nextNum = String(students.length + 1).padStart(2, "0");
+
+      students.push({
+        id: newId,
+        examNo: `26-03${nextNum}`,
+        name: rawName,
+        level: lvl,
+        score: defaultScore,
+        regHours: unit.totalHours,
+        makeupHours: 0,
+        strengths: unit.strengths.slice(0, 2).map(x => x.id),
+        weaknesses: lvl === "high" ? [] : unit.weaknesses.slice(0, 1).map(x => x.id),
+        rubricTiers: unit.rubricItems.map(() => (lvl === "high" ? 0 : lvl === "mid" ? 1 : 2))
+      });
+
+      nameInput.value = "";
+      document.getElementById("quickAddDrawer").classList.add("hidden");
+      activeStudentId = newId;
+      renderStudentPills();
+      renderStageContent();
+      syncActiveStudentUI();
+      renderMatrixTable();
+      showToast(`✅ [${rawName}] 학생이 추가되었습니다!`);
+    }
+
+    function updateActiveStudentName(val) {
+      const clean = val.replace(/\s+/g, "");
+      const st = getActiveStudent();
+      st.name = clean || "이름없음";
+      renderStudentPills();
+      renderStageContent();
+      generateAllTexts();
+    }
+
+    function setStudentLevel(lvl) {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+      st.level = lvl;
+      if (lvl === "high") {
+        st.score = 96;
+        st.strengths = unit.strengths.map(x => x.id);
+        st.weaknesses = [];
+        st.rubricTiers = unit.rubricItems.map(() => 0);
+      } else if (lvl === "mid") {
+        st.score = 85;
+        st.strengths = unit.strengths.slice(0, 2).map(x => x.id);
+        st.weaknesses = unit.weaknesses.slice(0, 1).map(x => x.id);
+        st.rubricTiers = unit.rubricItems.map((_, i) => (i === 1 ? 1 : 0));
+      } else if (lvl === "low") {
+        st.score = 72;
+        st.strengths = unit.strengths.slice(0, 1).map(x => x.id);
+        st.weaknesses = unit.weaknesses.map(x => x.id);
+        st.rubricTiers = unit.rubricItems.map(() => 1);
+      } else {
+        st.score = 54;
+        st.strengths = [];
+        st.weaknesses = unit.weaknesses.map(x => x.id);
+        st.rubricTiers = unit.rubricItems.map(() => 2);
+      }
+      renderStudentPills();
+      renderStageContent();
+      syncActiveStudentUI();
+    }
+
+    function updateStudentScore(val) {
+      const st = getActiveStudent();
+      const num = Math.round((parseFloat(val) || 0) * 10) / 10;
+      st.score = num;
+      if (num >= 90) st.level = "high";
+      else if (num >= 80) st.level = "mid";
+      else if (num >= 60) st.level = "low";
+      else st.level = "fail";
+
+      renderStudentPills();
+      syncActiveStudentUI();
+    }
+
+    function updateStudentAttendance(val) {
+      const st = getActiveStudent();
+      st.regHours = parseInt(val, 10) || 0;
+      renderStudentPills();
+      syncActiveStudentUI();
+    }
+
+    function toggleStrengthChip(chipId) {
+      const st = getActiveStudent();
+      const idx = st.strengths.indexOf(chipId);
+      if (idx >= 0) st.strengths.splice(idx, 1);
+      else st.strengths.push(chipId);
+      renderObservationChips();
+      generateAllTexts();
+    }
+
+    function toggleWeaknessChip(chipId) {
+      const st = getActiveStudent();
+      const idx = st.weaknesses.indexOf(chipId);
+      if (idx >= 0) st.weaknesses.splice(idx, 1);
+      else st.weaknesses.push(chipId);
+      renderObservationChips();
+      generateAllTexts();
+    }
+
+    function autoPresetSwitches() {
+      const st = getActiveStudent();
+      setStudentLevel(st.level);
+      showToast("⚡ 현재 학생 성취 수준에 맞춘 NCS 수행준거 스위치가 자동 세팅되었습니다.");
+    }
+
+    // ==================== UI SYNC & TEXT SYNTHESIS (STEP 4) ====================
+    function syncActiveStudentUI() {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+
+      document.getElementById("activeStudentNameInput").value = st.name;
+      document.getElementById("activeStudentExamNo").textContent = `수험번호: ${st.examNo}`;
+      document.getElementById("neis5TierBadge").textContent = `NEIS 성취도: ${getNeisGradeShort(st.score)}`;
+
+      // Highlight Level Buttons
+      ["high", "mid", "low", "fail"].forEach(l => {
+        const btn = document.getElementById("lvlBtn-" + l);
+        btn.className = "p-2.5 rounded-xl border border-slate-700 bg-slate-800/70 text-left transition-all text-slate-300 hover:border-slate-500";
+        if (st.level === l) {
+          btn.classList.add("level-btn-active-" + l);
+        }
+      });
+
+      // Sliders & Badges (매뉴얼 p.21 필수능력단위 60점 이상 Pass)
+      document.getElementById("scoreRangeInput").value = st.score;
+      document.getElementById("sliderScoreVal").textContent = `${st.score}점`;
+
+      const totalAtt = Math.min(unit.totalHours, st.regHours + st.makeupHours);
+      const attRate = Math.round((totalAtt / unit.totalHours) * 100);
+      document.getElementById("attRangeInput").max = unit.totalHours;
+      document.getElementById("attRangeInput").value = totalAtt;
+      document.getElementById("sliderAttVal").textContent = `${totalAtt} / ${unit.totalHours}h (${attRate}%)`;
+      document.getElementById("sliderAttVal").className = attRate >= 75 ? "font-bold text-emerald-400" : "font-bold text-rose-400";
+
+      const isPassScore = st.score >= 60;
+      const scoreBadge = document.getElementById("scorePassBadge");
+      if (isPassScore) {
+        scoreBadge.textContent = `${st.score}점 · PASS (${getNeisGradeShort(st.score)})`;
+        scoreBadge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+      } else {
+        scoreBadge.textContent = `${st.score}점 · FAIL (재평가 대상)`;
+        scoreBadge.className = "text-xs font-bold px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30";
+      }
+
+      // Compliance Banner (매뉴얼 p.21, p.62, p.91)
+      const banner = document.getElementById("complianceStatusBanner");
+      const bIcon = document.getElementById("statusBannerIcon");
+      const bTitle = document.getElementById("statusBannerTitle");
+      const bDesc = document.getElementById("statusBannerDesc");
+
+      if (isPassScore && attRate >= 75) {
+        banner.className = "bg-emerald-950/50 border border-emerald-500/40 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-2";
+        bIcon.textContent = "✅";
+        bTitle.className = "text-sm font-bold text-emerald-300";
+        bTitle.textContent = `HRD-Net & NEIS 종합 판정: [${st.name} — 이수(Pass) · 성취도 ${getNeisGradeShort(st.score)}]`;
+        bDesc.textContent = `출석률 ${attRate}%(기준 75%↑) 및 필수능력단위 ${st.score}점(기준 60점↑)으로 외부평가 응시 요건을 충족합니다(매뉴얼 p.21, p.91).`;
+      } else if (!isPassScore && attRate >= 75) {
+        banner.className = "bg-amber-950/50 border border-amber-500/40 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-2";
+        bIcon.textContent = "⚠️";
+        bTitle.textContent = `HRD-Net 판정: [${st.name} — 필수능력단위 60점 미만(${st.score}점) → 재교육 후 재평가(×0.9) 대상]`;
+        bTitle.className = "text-sm font-bold text-amber-300";
+        bDesc.textContent = `재교육(전체 훈련시간 미포함) 실시 후 본평가와 다른 문제로 1회 재평가를 시행하며, 취득점수의 90%(최대 90점)를 반영합니다(매뉴얼 p.17, p.73).`;
+      } else {
+        banner.className = "bg-rose-950/50 border border-rose-500/40 rounded-2xl p-3.5 flex flex-wrap items-center justify-between gap-2";
+        bIcon.textContent = "🚨";
+        bTitle.className = "text-sm font-bold text-rose-300";
+        bTitle.textContent = `HRD-Net 판정: [${st.name} — 능력단위 출석률 미달(${attRate}%) 미이수 위험!]`;
+        bDesc.textContent = `마지막 내부평가 실시 전에 보충수업(보강훈련)을 완료하여 출석률 75% 이상을 확보해야 합니다(본평가일 이후 보충수업 불인정, 매뉴얼 p.127 Q4).`;
+      }
+
+      renderObservationChips();
+      generateAllTexts();
+    }
+
+    function renderObservationChips() {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+
+      const sContainer = document.getElementById("strengthChipsContainer");
+      sContainer.innerHTML = unit.strengths.map(item => {
+        const on = st.strengths.includes(item.id);
+        const cls = on ? "chip-active" : "bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200";
+        return `
+          <button onclick="toggleStrengthChip('${item.id}')" class="px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-all flex items-center gap-1.5 ${cls}">
+            <span>${on ? "🟢 ON" : "⚪ OFF"}</span>
+            <span>${item.label}</span>
+          </button>
+        `;
+      }).join("");
+
+      const wContainer = document.getElementById("weaknessChipsContainer");
+      wContainer.innerHTML = unit.weaknesses.map(item => {
+        const on = st.weaknesses.includes(item.id);
+        const cls = on ? "chip-warn-active" : "bg-slate-800/80 border-slate-700 text-slate-400 hover:text-slate-200";
+        return `
+          <button onclick="toggleWeaknessChip('${item.id}')" class="px-2.5 py-1.5 rounded-xl border text-xs font-medium transition-all flex items-center gap-1.5 ${cls}">
+            <span>${on ? "🟠 ON" : "⚪ OFF"}</span>
+            <span>${item.label}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    function generateAllTexts() {
+      const st = getActiveStudent();
+      const unit = getCurrentUnit();
+      const course = COURSE_DATA[activeCourseKey];
+
+      const selectedStrengths = unit.strengths.filter(x => st.strengths.includes(x.id));
+      const selectedWeaknesses = unit.weaknesses.filter(x => st.weaknesses.includes(x.id));
+
+      // 1. HRD-Net [평가결과 점검 -> 우수한 점] (매뉴얼 p.87)
+      let goodText = "";
+      if (selectedStrengths.length > 0) {
+        goodText = `[${unit.name.split("(")[0].trim()}] 내부평가 시행 결과, ${selectedStrengths.map(s => s.text).join(" 또한, ")} 등 NCS 능력단위 평가기준을 충실히 달성함.`;
+      } else {
+        goodText = `[${unit.name.split("(")[0].trim()}] 내부평가에서 기본 실습 장비 조작 절차와 작업장 안전수칙을 준수하며 제시된 개인별 평가과제를 성실히 수행함.`;
+      }
+      document.getElementById("outHrdGood").value = goodText;
+
+      // 2. HRD-Net [평가결과 점검 -> 미흡한 점] (매뉴얼 p.87)
+      let weakText = "";
+      if (selectedWeaknesses.length > 0) {
+        weakText = `${selectedWeaknesses.map(w => w.text).join(" 아울러, ")} 향후 외부평가 실기 과제 수행 시 제한시간 내 작업 완결성 제고를 위해 단계별 자가 검수 루틴을 피드백함.`;
+      } else {
+        weakText = `특이 미흡사항 없이 모든 세부 평가요소의 채점기준을 안정적으로 충족하였으며, 외부평가 작업형 실기 시험 대비 시간 단축 반복 훈련만 병행하면 우수한 성과가 기대됨.`;
+      }
+      document.getElementById("outHrdWeak").value = weakText;
+
+      // 3. [기타 서식 2] 학습자용 실기평가표 & 건설적 피드백 (긍정-부정-긍정 순서, 매뉴얼 p.72, p.110)
+      const neisTier = getNeisGradeShort(st.score);
+      const posOpen = selectedStrengths.length > 0
+        ? `[긍정 강점] ${st.name} 학생은 ${selectedStrengths[0].text}한 점이 매우 돋보입니다.`
+        : `[긍정 강점] ${st.name} 학생은 실습 안전수칙을 지키며 끝까지 과제를 수행하려는 태도가 우수합니다.`;
+      const midCoach = selectedWeaknesses.length > 0
+        ? `[보완 코칭] 다만 ${selectedWeaknesses[0].text} 부분이 관찰되었으므로 해당 절차를 체크리스트로 재점검하기 바랍니다.`
+        : `[보완 코칭] 기본 수행준거는 모두 달성하였으나 복합 응용 조건에서의 작업 속도를 조금 더 높이면 좋겠습니다.`;
+      const posClose = `[성장 격려 · ${st.score}점(${neisTier})] 지금처럼 원리 중심의 검수 습관을 이어간다면 과정평가형 외부평가에서도 충분히 고득점 합격할 수 있습니다!`;
+
+      document.getElementById("outIndividualEval").value = `${posOpen} ${midCoach} ${posClose}`;
+
+      // 4. 재교육 및 재평가 계획·90% 환산 계산기 (매뉴얼 p.17~18, p.73, p.128)
+      const rawReeval = parseFloat(document.getElementById("reevalRawScoreInput").value) || 0;
+      const convertedReeval = Math.min(90, Math.round(rawReeval * 0.9 * 10) / 10);
+      document.getElementById("reevalConvertedBadge").textContent = `→ 최종 반영(×0.9): ${convertedReeval}점`;
+
+      const reevalCard = document.getElementById("reevalCard");
+      const reevalBadge = document.getElementById("reevalBadge");
+      let reevalText = "";
+      if (st.score < 60) {
+        reevalCard.className = "bg-amber-950/30 border border-amber-500/50 rounded-2xl p-4 shadow-lg space-y-2.5";
+        reevalBadge.className = "text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40";
+        reevalBadge.textContent = "🚨 필수능력단위 60점 미만 Fail → 재교육 후 1회 재평가 필수 (매뉴얼 p.17, p.73)";
+        const focusTopic = selectedWeaknesses.length > 0 ? selectedWeaknesses.map(w => w.label).join(", ") : "핵심 도면 해독 및 오차 교정";
+        reevalText = `[재평가 대상자: ${st.name} (${st.examNo}) / 본평가 ${st.score}점(Fail)]\n• 재교육 실시(전체 훈련시간 미포함, p.73): 방과후 보충지도를 통해 '${focusTopic}' 1:1 클리닉 및 과제 피드백 완료\n• 재평가 시행(본평가일 다음날 이후, 본평가와 다른 평가도구 #재1 적용, p.128 Q3·Q7): 100점 만점 기준 ${rawReeval}점 취득 × 가중치 90% 환산 = 최종 [${convertedReeval}점(Pass)] 부여 (재평가 후 7일 이내 HRD-Net 신고).`;
+      } else {
+        reevalCard.className = "bg-slate-900/95 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-2.5";
+        reevalBadge.className = "text-[11px] font-semibold px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700";
+        reevalBadge.textContent = "매뉴얼 p.17~18, p.73 재교육(훈련시간 미포함) & 재평가(×0.9 환산)";
+        reevalText = `[해당 없음 — ${st.name} 학생은 본평가 ${st.score}점(60점 이상 Pass)이므로 재평가 대상이 아닙니다. 매뉴얼 p.128 Q5에 따라 본평가 60점 이상 이수자는 희망하더라도 재평가에 응시할 수 없습니다.] (참고: 만일 재평가 원점수 ${rawReeval}점 취득 시 ×0.9 환산점수는 ${convertedReeval}점입니다.)`;
+      }
+      document.getElementById("outReevalPlan").value = reevalText;
+
+      // 5. 나이스(NEIS) 교과 세부능력 및 특기사항 (세특)
+      const neisStrengthSentences = selectedStrengths.map(s => s.neis).join(" ");
+      const neisGrowthSentences = selectedWeaknesses.map(w => w.neisFix).join(" ");
+      let neisClosing = "";
+      if (st.score >= 90) {
+        neisClosing = `과정평가형 국가기술자격(${course.name.split("(")[0].trim()}) 교육과정을 이수하며 직무 수행에 필요한 기술적 사고력과 문제 해결력을 토대로 주도적이고 완벽하게 실무 과제를 완수하는 역량이 탁월함.`;
+      } else if (st.score >= 80) {
+        neisClosing = `과정평가형 자격 과정의 실습 과제에 적극적으로 참여하며 시행착오를 논리적인 계측과 디버깅으로 해결해 나가는 자기주도적 엔지니어링 역량을 꾸준히 신장시킴.`;
+      } else {
+        neisClosing = `기초 원리 이해부터 반복 실습까지 포기하지 않고 과제를 완수하는 성실함을 보여주었으며, 단계적인 오류 교정을 통해 실무 직무 수행 자신감을 향상시킴.`;
+      }
+
+      const fullNeis = `${neisStrengthSentences ? neisStrengthSentences + " " : ""}${neisGrowthSentences ? neisGrowthSentences + " " : ""}${neisClosing}`.trim();
+      document.getElementById("outNeisRecord").value = fullNeis;
+      updateCharCount();
+    }
+
+    function updateCharCount() {
+      const txt = document.getElementById("outNeisRecord").value || "";
+      document.getElementById("neisCharCount").textContent = `${txt.length}자 (공백포함)`;
+    }
+
+    // ==================== TAB 2: MATRIX TABLE & PARTIAL RE-EVAL CALCULATOR ====================
+    function calcPartialReeval() {
+      const s1 = parseFloat(document.getElementById("part1Score").value) || 0;
+      const s2 = parseFloat(document.getElementById("part2Score").value) || 0;
+      const finalScore = Math.round(((s1 * 0.7) + (s2 * 0.3 * 0.9)) * 10) / 10;
+      const resEl = document.getElementById("partialReevalResult");
+      resEl.textContent = `${finalScore}점 (${finalScore >= 60 ? 'Pass' : 'Fail'})`;
+      resEl.className = finalScore >= 60 ? "text-sm font-bold text-emerald-400 font-mono" : "text-sm font-bold text-rose-400 font-mono";
+    }
+
+    function renderMatrixTable() {
+      const tbody = document.getElementById("matrixTableBody");
+      const unit = getCurrentUnit();
+
+      tbody.innerHTML = students.map(st => {
+        const totalAtt = Math.min(unit.totalHours, st.regHours + st.makeupHours);
+        const attRate = Math.round((totalAtt / unit.totalHours) * 100);
+        const isAttOk = attRate >= 75;
+        const isScoreOk = st.score >= 60;
+        const isFinalPass = isAttOk && isScoreOk;
+
+        const statusBadge = isFinalPass
+          ? `<span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">이수 (Pass)</span>`
+          : !isAttOk
+          ? `<span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 font-bold">미이수 (출석미달)</span>`
+          : `<span class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">재평가대상 (<60점)</span>`;
+
+        return `
+          <tr class="hover:bg-slate-800/40 transition">
+            <td class="py-2.5 px-3 font-mono text-slate-400">${st.examNo}</td>
+            <td class="py-2.5 px-3 font-bold text-white">${st.name}</td>
+            <td class="py-2.5 px-3">
+              <div class="inline-flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
+                <button onclick="quickMatrixLevel('${st.id}', 'high')" class="px-2 py-0.5 rounded text-[11px] font-semibold ${st.level === 'high' ? 'bg-emerald-600 text-white' : 'text-slate-400'}">상</button>
+                <button onclick="quickMatrixLevel('${st.id}', 'mid')" class="px-2 py-0.5 rounded text-[11px] font-semibold ${st.level === 'mid' ? 'bg-blue-600 text-white' : 'text-slate-400'}">중</button>
+                <button onclick="quickMatrixLevel('${st.id}', 'low')" class="px-2 py-0.5 rounded text-[11px] font-semibold ${st.level === 'low' ? 'bg-amber-600 text-white' : 'text-slate-400'}">하</button>
+                <button onclick="quickMatrixLevel('${st.id}', 'fail')" class="px-2 py-0.5 rounded text-[11px] font-semibold ${st.level === 'fail' ? 'bg-rose-600 text-white' : 'text-slate-400'}">재평가</button>
+              </div>
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="number" min="0" max="${unit.totalHours}" value="${st.regHours}" onchange="updateMatrixHours('${st.id}', 'reg', this.value)" class="w-14 bg-slate-800 border border-slate-700 rounded px-1.5 py-1 text-xs text-white text-center" />
+              <span class="text-slate-500">/ ${unit.totalHours}h</span>
+            </td>
+            <td class="py-2.5 px-3">
+              <input type="number" min="0" max="20" value="${st.makeupHours}" onchange="updateMatrixHours('${st.id}', 'makeup', this.value)" class="w-12 bg-slate-800 border border-slate-700 rounded px-1.5 py-1 text-xs text-emerald-300 text-center" />
+              <span class="text-slate-500">h</span>
+            </td>
+            <td class="py-2.5 px-3 font-bold ${isAttOk ? 'text-emerald-400' : 'text-rose-400'}">${attRate}%</td>
+            <td class="py-2.5 px-3">
+              <input type="number" min="0" max="100" value="${st.score}" onchange="updateMatrixScore('${st.id}', this.value)" class="w-14 bg-slate-800 border border-slate-700 rounded px-1.5 py-1 text-xs font-bold text-white text-center" />
+              <span class="text-slate-400">점</span>
+            </td>
+            <td class="py-2.5 px-3 font-semibold text-purple-300">${getNeisGradeShort(st.score)}</td>
+            <td class="py-2.5 px-3">${statusBadge}</td>
+            <td class="py-2.5 px-3 text-right">
+              <button onclick="openStudentInTab1('${st.id}')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-emerald-600 text-slate-200 hover:text-white border border-slate-700 transition">
+                상세·세특 보기
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function quickMatrixLevel(id, lvl) {
+      activeStudentId = id;
+      setStudentLevel(lvl);
+      renderMatrixTable();
+    }
+
+    function updateMatrixHours(id, type, val) {
+      const st = students.find(x => x.id === id);
+      if (!st) return;
+      const num = Math.max(0, parseInt(val, 10) || 0);
+      if (type === "reg") st.regHours = num;
+      else st.makeupHours = num;
+      renderStudentPills();
+      syncActiveStudentUI();
+      renderMatrixTable();
+    }
+
+    function updateMatrixScore(id, val) {
+      const st = students.find(x => x.id === id);
+      if (!st) return;
+      activeStudentId = id;
+      updateStudentScore(val);
+      renderMatrixTable();
+    }
+
+    function openStudentInTab1(id) {
+      selectStudent(id);
+      switchTab("eval");
+      selectStage(4);
+    }
+
+    function batchApplyFullAttendance() {
+      const unit = getCurrentUnit();
+      students.forEach(st => {
+        st.regHours = unit.totalHours;
+        st.makeupHours = 0;
+      });
+      renderStudentPills();
+      syncActiveStudentUI();
+      renderMatrixTable();
+      showToast(`✅ 전 학생(${students.length}명)에게 ${unit.totalHours}시간(100% 출석)이 일괄 적용되었습니다!`);
+    }
+
+    function exportClassReportCSV() {
+      const unit = getCurrentUnit();
+      const prevActive = activeStudentId;
+      let rows = [["수험번호", "성명", "수준", "정규학습시간", "보강학습시간", "학습률(%)", "내부평가득점", "NEIS성취도(5단계)", "종합판정", "학습자용평가표피드백", "NEIS교과세특"]];
+
+      students.forEach(st => {
+        activeStudentId = st.id;
+        generateAllTexts();
+        const totalAtt = Math.min(unit.totalHours, st.regHours + st.makeupHours);
+        const attRate = Math.round((totalAtt / unit.totalHours) * 100);
+        const isPass = st.score >= 60 && attRate >= 75 ? "이수(Pass)" : "미이수/재평가";
+        const indiv = document.getElementById("outIndividualEval").value.replace(/"/g, '""');
+        const neis = document.getElementById("outNeisRecord").value.replace(/"/g, '""');
+        rows.push([
+          st.examNo,
+          st.name,
+          levelLabelShort(st.level),
+          st.regHours,
+          st.makeupHours,
+          attRate + "%",
+          st.score,
+          getNeisGradeShort(st.score),
+          isPass,
+          `"${indiv}"`,
+          `"${neis}"`
+        ]);
+      });
+
+      activeStudentId = prevActive;
+      generateAllTexts();
+
+      const csvContent = "\uFEFF" + rows.map(r => r.join(",")).join("\n");
+      downloadBlob(csvContent, "과정평가형_내부평가_및_NEIS세특_일괄내역.csv", "text/csv;charset=utf-8;");
+      showToast("📥 반 전체 내부평가·5단계 성취도·NEIS 세특 CSV 파일이 다운로드되었습니다!");
+    }
+
+    // ==================== TAB 3: DEADLINE CALCULATOR & EXCEL CLEANER ====================
+    function calculateDeadlines() {
+      const inputVal = document.getElementById("evalDateInput").value;
+      if (!inputVal) return;
+      const baseDate = new Date(inputVal + "T00:00:00");
+
+      const planDate = new Date(baseDate);
+      planDate.setDate(planDate.getDate() - 7);
+
+      const fbDate = new Date(baseDate);
+      fbDate.setDate(fbDate.getDate() + 7);
+
+      const resultDate = new Date(baseDate);
+      resultDate.setDate(resultDate.getDate() + 15);
+
+      document.getElementById("deadlinePlanDate").textContent = formatDateISO(planDate) + " 까지";
+      document.getElementById("deadlineFeedbackDate").textContent = formatDateISO(fbDate) + " 이내";
+      document.getElementById("deadlineResultDate").textContent = formatDateISO(resultDate) + " 이내";
+      document.getElementById("deadlineReevalDate").textContent = "재평가 실시 후 7일 이내";
+    }
+
+    function formatDateISO(d) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    function updateEvidenceChecklist() {
+      const chks = document.querySelectorAll(".evidence-chk");
+      let checkedCount = 0;
+      chks.forEach(c => { if (c.checked) checkedCount++; });
+      const badge = document.getElementById("checklistProgress");
+      badge.textContent = `${checkedCount} / ${chks.length} 완료`;
+      badge.className = checkedCount === chks.length ? "text-xs font-bold text-emerald-400" : "text-xs font-bold text-amber-400";
+    }
+
+    function cleanAndPreviewRoster() {
+      const raw = document.getElementById("rawRosterInput").value || "";
+      const lines = raw.split("\n").map(l => l.trim()).filter(Boolean);
+      const cleanedLines = [
+        "주민번호(13자리,'자동부여)\t성명(공백제거)\t연락처(휴대폰)\t우편번호(5자리)\t기본주소(도로명)\t최종학력코드(고교재학:131)"
+      ];
+
+      lines.forEach(line => {
+        const parts = line.split(",").map(p => p.trim());
+        const nameClean = (parts[0] || "").replace(/\s+/g, "");
+        let juminClean = (parts[1] || "").replace(/[^0-9]/g, "");
+        if (juminClean.startsWith("0")) {
+          juminClean = "'" + juminClean;
+        }
+        const phoneClean = (parts[2] || "010-0000-0000").replace(/[^0-9-]/g, "");
+        const zipClean = (parts[3] || "34134").replace(/[^0-9]/g, "").slice(0, 5);
+        const addrClean = parts[4] || "대전광역시 유성구 대학로 99";
+        cleanedLines.push(`${juminClean}\t${nameClean}\t${phoneClean}\t${zipClean}\t${addrClean}\t131`);
+      });
+
+      document.getElementById("cleanedRosterPreview").textContent = cleanedLines.join("\n");
+    }
+
+    function downloadCleanedRosterCSV() {
+      cleanAndPreviewRoster();
+      const previewText = document.getElementById("cleanedRosterPreview").textContent;
+      const csvText = "\uFEFF" + previewText.split("\n").map(l => l.split("\t").join(",")).join("\n");
+      downloadBlob(csvText, "HRD-Net_교육훈련생_일괄등록_오류방지양식.csv", "text/csv;charset=utf-8;");
+      showToast("📥 HRD-Net 일괄등록용 엑셀(CSV) 양식이 다운로드되었습니다!");
+    }
+
+    // ==================== CLIPBOARD & UTILITIES ====================
+    function copyTextById(elId, msg) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      copyStringToClipboard(el.value, msg);
+    }
+
+    function copyAllOutputs() {
+      const st = getActiveStudent();
+      const good = document.getElementById("outHrdGood").value;
+      const weak = document.getElementById("outHrdWeak").value;
+      const indiv = document.getElementById("outIndividualEval").value;
+      const neis = document.getElementById("outNeisRecord").value;
+
+      const bundle = `[학생명: ${st.name} (${st.examNo}) / 내부평가 ${st.score}점 (${getNeisGradeShort(st.score)})]\n\n1. HRD-Net [우수한 점]\n${good}\n\n2. HRD-Net [미흡한 점]\n${weak}\n\n3. [학습자용 평가표 피드백]\n${indiv}\n\n4. [NEIS 교과 세특]\n${neis}`;
+      copyStringToClipboard(bundle, `📋 [${st.name}] 학생의 HRD-Net 총평·피드백·NEIS 세특 전체가 복사되었습니다!`);
+    }
+
+    function copyStringToClipboard(str, toastMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(str).then(() => {
+          showToast(toastMsg);
+        }).catch(() => {
+          fallbackCopy(str, toastMsg);
+        });
+      } else {
+        fallbackCopy(str, toastMsg);
+      }
+    }
+
+    function fallbackCopy(str, toastMsg) {
+      const temp = document.createElement("textarea");
+      temp.value = str;
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand("copy");
+        showToast(toastMsg);
+      } catch (e) {
+        showToast("복사 완료!");
+      }
+      document.body.removeChild(temp);
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const box = document.getElementById("toastBox");
+      const txt = document.getElementById("toastText");
+      txt.textContent = message;
+      box.classList.remove("hidden");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.add("hidden");
+      }, 2800);
+    }
+
+    function downloadBlob(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
